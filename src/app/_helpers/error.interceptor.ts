@@ -9,6 +9,10 @@ import { AuthenticationService } from '@app/_services/api/authentication';
 export class ErrorInterceptor implements HttpInterceptor {
     constructor(private authenticationService: AuthenticationService) { }
 
+
+    FOR TEST PR
+
+
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError((err: any) => {
             if (err.status === 401) {
