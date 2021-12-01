@@ -8,6 +8,7 @@ import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/co
 import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component";
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component";
 import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component";
+import {MetricsComponent} from "@app/course/metrics/metrics.component";
 import {CourseRoutingModule} from "@app/course/course-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
@@ -49,7 +50,14 @@ import {
 import {TextMaskModule} from "angular2-text-mask";
 import {CourseRegistrationStepperComponent} from './course-registration/course-registration-stepper/course-registration-stepper.component';
 import {CourseRegistrationStepComponent} from './course-registration/course-registration-step/course-registration-step.component';
+
 import {TuiFilterPipeModule} from "@taiga-ui/cdk";
+
+import {MatListModule} from "@angular/material/list";
+import {MatExpansionModule} from "@angular/material/expansion";
+import { MetricsViewComponent } from './metrics-view/metrics-view.component';
+import { EventMetricsViewComponent } from './event-metrics-view/event-metrics-view.component';
+
 
 @NgModule({
     declarations: [
@@ -63,7 +71,10 @@ import {TuiFilterPipeModule} from "@taiga-ui/cdk";
         LeaderBoardComponent,
         ConceptMapComponent,
         CourseRegistrationStepperComponent,
-        CourseRegistrationStepComponent
+        CourseRegistrationStepComponent,
+        MetricsComponent,
+        MetricsViewComponent,
+        EventMetricsViewComponent,
     ],
     imports: [
         CommonModule,
@@ -97,7 +108,9 @@ import {TuiFilterPipeModule} from "@taiga-ui/cdk";
         TuiLoaderModule,
         TuiIslandModule,
         TuiTagModule,
-        TuiFilterPipeModule
+        TuiFilterPipeModule,
+        MatListModule,
+        MatExpansionModule
     ],
     providers:[
         CourseService,

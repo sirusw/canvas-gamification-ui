@@ -46,6 +46,13 @@
            aria-controls="leader-board"
            aria-selected="false">Leader&nbsp;Board</a>
     </li>
+    <ng-container *ngIf="user?.is_teacher">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="Submission-tab" data-toggle="tab" href="#submission" role="tab"
+               aria-controls="submission"
+               aria-selected="false">View Metrics</a>
+        </li>
+    </ng-container>
 </ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="concept-map" role="tabpanel" aria-labelledby="concept-map-tab">
@@ -87,5 +94,14 @@
             </ng-container>
         </div>
     </div>
+    <ng-container *ngIf="user?.is_teacher">
+        <div class="tab-pane fade" id="submission" role="tabpanel" aria-labelledby="submission-tab">
+            <div class="hover-shadow p-3">
+                <ng-container *ngIf="course">
+                    <app-submission [events]="course?.events" [courseId]="courseId"></app-submission>
+                </ng-container>
+            </div>
+        </div>
+    </ng-container>
 </div>
 

@@ -7,6 +7,8 @@ import {CourseComponent} from "@app/course/course.component";
 import {CourseEventCreateEditComponent} from "@app/course/course-event-create/course-event-create-edit.component";
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component";
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component";
+import {MetricsViewComponent} from "@app/course/metrics-view/metrics-view.component";
+import {EventMetricsViewComponent} from "@app/course/event-metrics-view/event-metrics-view.component";
 
 const routes = [
     {
@@ -49,6 +51,21 @@ const routes = [
         component: ProblemViewComponent,
         canActivate: [AuthGuard]
     },
+    {
+        path: ':courseId/event/:eventId/problem/:id/metrics',
+        component: MetricsViewComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: ':courseId/problem/:id/metrics',
+        component: MetricsViewComponent,
+        canActivate: [AuthGuard]
+    },
+    // {
+    //     path: ':courseId/event/:id/metrics',
+    //     component: EventMetricsViewComponent,
+    //     canActivate: [AuthGuard]
+    // },
 ];
 
 @NgModule({

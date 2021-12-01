@@ -44,6 +44,17 @@
                                 <a class="btn btn-warning mr-3"
                                    [routerLink]="['/problem', uqj.question.id,'edit']">Edit</a>
                             </ng-container>
+                            <ng-container *ngIf="user.is_teacher" >
+                                <ng-container *ngIf="eventId; else noEventForSubmission">
+                                    <a class="btn btn-info mr-3"
+                                       [routerLink]="['/course', courseId, 'event', this.eventId, 'problem', uqj.question.id,'metrics']">View Metrics</a>
+                                </ng-container>
+                                <ng-template #noEventForSubmission>
+                                     <a class="btn btn-info mr-3"
+                                       [routerLink]="['/course', courseId, 'problem', uqj.question.id, 'metrics']">View Code Metrics</a>
+                                </ng-template>
+
+                            </ng-container>
 
                         </td>
                     </tr>

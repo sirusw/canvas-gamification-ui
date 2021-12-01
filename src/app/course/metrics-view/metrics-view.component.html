@@ -1,0 +1,242 @@
+<table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+        <th>Category</th>
+        <th>Tokens Value</th>
+        <th>Status</th>
+        <th>Num Attempts</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{ uqj?.question?.full_category_name || 'No Category'}}</td>
+        <td>{{uqj?.question?.token_value || 'No Token Value'}}</td>
+        <td>{{uqj?.status || 'No Status'}}</td>
+        <td>{{uqj?.question?.max_submission_allowed || 'No Value'}}</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="card my-3" *ngFor="let item of answerFiles">
+    <div class="card-header"><h2> {{ item.name }} </h2></div>
+    <div class="card-body">
+            <pre>
+                <code [highlight]="item.code" [lineNumbers]="true"></code>
+            </pre>
+    </div>
+</div>
+
+<div class="card my-1">
+    <div class="card-header">
+        <h1>{{uqj?.question?.title}}</h1>
+    </div>
+    <div class="card-body" [innerHTML]="uqj?.question?.text"></div>
+</div>
+
+
+<div class="card my-1" *ngIf="type != 'mcq'; else mcq_view">
+    <div class="card-header">
+        <h1>Submission & Metrics</h1>
+    </div>
+    <div class="card-body">
+        <h2 style="text-align: center">Overall Average Metrics</h2>
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th colspan="8" style="text-align: center">Basics (Average)</th>
+                <th colspan="9" style="text-align: center">Halstead Metrics (Average)</th>
+            </tr>
+            <tr class="metrics">
+                <th>Number of Submissions</th>
+                <th>Grade</th>
+                <th>Correct Rate</th>
+                <th>Total Lines</th>
+                <th>Blank Lines</th>
+                <th>Number of Comments</th>
+                <th>Number of Import Statements</th>
+                <th>Number of Methods</th>
+                <th>Cyclomatic Complexity</th>
+                <th>Operators</th>
+                <th>Operands</th>
+                <th>Unique Operators</th>
+                <th>Unique Operands</th>
+                <th>Vocabulary</th>
+                <th>Difficulty</th>
+                <th>Effort</th>
+                <th>Error</th>
+                <th>Test time</th>
+
+
+            </tr>
+            <tr *ngIf="questionMetrics">
+                <td>{{questionMetrics.number_submission}}</td>
+                <td>{{questionMetrics.avg_grade}}/1.00</td>
+                <td>{{questionMetrics.correct_rate*100}}%</td>
+                <td>{{questionMetrics.lines}}</td>
+                <td>{{questionMetrics.blank_lines}}</td>
+                <td>{{questionMetrics.comment_lines}}</td>
+                <td> {{questionMetrics.import_lines}}</td>
+                <td>{{questionMetrics.method}}</td>
+                <td>{{questionMetrics.cc}}</td>
+                <td>{{questionMetrics.operator}}</td>
+                <td>{{questionMetrics.operand}}</td>
+                <td> {{questionMetrics.unique_operator}}</td>
+                <td> {{questionMetrics.unique_operand}}</td>
+                <td>{{questionMetrics.vocab}}</td>
+                <td>{{questionMetrics.difficulty}}</td>
+                <td>{{questionMetrics.effort}}</td>
+                <td>{{questionMetrics.error}}</td>
+                <td>{{questionMetrics.test_time}}</td>
+            </tr>
+        </table>
+
+        <h2 style="text-align: center">Individual Submission Metrics</h2>
+
+        <ng-container *ngIf="distinctUsers; else tableEmpty">
+            <mat-accordion>
+                <mat-expansion-panel hideToggle *ngFor="let user of distinctUsers | keyvalue">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <p>{{user.value}}</p>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <mat-list>
+
+                        <table class="table table-hover table-bordered">
+                            <tr>
+                                <th colspan="8" style="text-align: center">Basics</th>
+                                <th colspan="9" style="text-align: center">Halstead Metrics</th>
+                            </tr>
+                            <tr class="metrics">
+                                <th>Submission</th>
+                                <th>Grade</th>
+                                <th>Total Lines</th>
+                                <th>Blank Lines</th>
+                                <th>Number of Comments</th>
+                                <th>Number of Import Statements</th>
+                                <th>Number of Methods</th>
+                                <th>Cyclomatic Complexity</th>
+                                <th>Operators</th>
+                                <th>Operands</th>
+                                <th>Unique Operators</th>
+                                <th>Unique Operands</th>
+                                <th>Vocabulary</th>
+                                <th>Difficulty</th>
+                                <th>Effort</th>
+                                <th>Error</th>
+                                <th>Test time</th>
+
+
+                            </tr>
+                            <ng-container *ngFor="let submission of analytics">
+                                <tr  *ngIf="submission.user_id === user.key">
+                                    <td>
+                                        <button class="btn btn-primary mr-3"
+                                                [routerLink]="['/problems/submission/', submission.submission.id]">
+                                            Details</button></td>
+                                    <td>{{submission.submission.grade.toFixed(2)}}</td>
+                                    <td>{{submission.lines}}</td>
+                                    <td>{{submission.blank_lines}}</td>
+                                    <td>{{submission.comment_lines}}</td>
+                                    <td> {{submission.import_lines}}</td>
+                                    <td>{{submission.method}}</td>
+                                    <td>{{submission.cc}}</td>
+                                    <td>{{submission.operator}}</td>
+                                    <td>{{submission.operand}}</td>
+                                    <td> {{submission.unique_operator}}</td>
+                                    <td> {{submission.unique_operand}}</td>
+                                    <td>{{submission.vocab}}</td>
+                                    <td>{{submission.difficulty}}</td>
+                                    <td>{{submission.effort}}</td>
+                                    <td>{{submission.error}}</td>
+                                    <td>{{submission.test_time}}</td>
+                                </tr>
+                            </ng-container>
+                        </table>
+                    </mat-list>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </ng-container>
+
+    </div>
+</div>
+
+<ng-template #mcq_view>
+    <div class="card my-1">
+    <div class="card-header">
+        <h1>Submission & Metrics</h1>
+    </div>
+    <div class="card-body">
+        <h2 style="text-align: center">Overall Average Metrics</h2>
+        <table class="table table-hover table-bordered">
+            <tr>
+                <th colspan="3" style="text-align: center">Basics (Average)</th>
+            </tr>
+            <tr class="metrics">
+                <th>Number of Submissions</th>
+                <th>Grade</th>
+                <th>Correct Rate</th>
+
+            </tr>
+            <tr *ngIf="questionMetrics">
+                <td>{{questionMetrics.number_submission}}</td>
+                <td>{{questionMetrics.avg_grade}}/1.00</td>
+                <td>{{questionMetrics.correct_rate*100}}%</td>
+            </tr>
+        </table>
+
+        <h2 style="text-align: center">Individual Submission Metrics</h2>
+
+        <ng-container *ngIf="distinctUsers; else tableEmpty">
+            <mat-accordion>
+                <mat-expansion-panel hideToggle *ngFor="let user of distinctUsers | keyvalue">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <p>{{user.value}}</p>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <mat-list>
+
+                        <table class="table table-hover table-bordered">
+                            <tr class="metrics">
+                                <th>Submission</th>
+                                <th>Grade</th>
+                            </tr>
+                            <ng-container *ngFor="let submission of analytics">
+                                <tr  *ngIf="submission.user_id === user.key">
+                                    <td>
+                                        <button class="btn btn-primary mr-3"
+                                                [routerLink]="['/problems/submission/', submission.submission.id]">
+                                            Details</button></td>
+                                    <td>{{submission.submission.grade.toFixed(2)}}</td>
+                                </tr>
+                            </ng-container>
+                        </table>
+                    </mat-list>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </ng-container>
+
+    </div>
+</div>
+</ng-template>
+
+
+<!--<mat-paginator [length]="submission?submission.length:'0'"-->
+<!--              [pageSize]="10"-->
+<!--              aria-label="Select page">-->
+<!--</mat-paginator>-->
+
+<ng-template #tableEmpty>
+        <tr>
+            <td class="bg-info" colspan="6">
+                <p class="text-center text-light m-0">There are currently no submissions in this course.</p>
+            </td>
+        </tr>
+</ng-template>
+
+
+
