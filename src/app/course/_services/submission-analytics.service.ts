@@ -14,13 +14,6 @@ export class SubmissionAnalyticsService {
     constructor(private http: HttpClient,
         private apiService: ApiService) { }
 
-    getSubmissionAnalytics(): Observable<SubmissionAnalytics[]> {
-        const url = this.apiService.getURL('submission-analytics');
-        return this.http
-            .get<SubmissionAnalytics[]>(url)
-            .pipe(catchError(this.apiService.handleError<SubmissionAnalytics[]>(`Error occurred while fetching submission analytics`)));
-    }
-
 
     getAllSubmissionAnalytics(options?: {
         filters?: unknown,
@@ -48,10 +41,31 @@ export class SubmissionAnalyticsService {
             .pipe(catchError(this.apiService.handleError<PaginatedResult<SubmissionAnalytics>>(`Error occurred while fetching submission analytics`)));
     }
 
-    getAnalyticsByQuestion(questionId: number): Observable<SubmissionAnalytics[]> {
+
+    getJavaSubmissionAnalyticsByQuestion(questionId: number): Observable<SubmissionAnalytics[]> {
         const params = new HttpParams()
             .set('question', String(questionId));
-        const url = this.apiService.getURL('submission-analytics');
+        const url = this.apiService.getURL('java-submission-analytics');
+        return this.http
+            .get<PaginatedResult<SubmissionAnalytics>>(url, {params})
+            .pipe(map(x => x.results))
+            .pipe(catchError(this.apiService.handleError<SubmissionAnalytics[]>(`Error Occurred while fetching user-specific data for this submission analytics`)));
+    }
+
+    getParsonsSubmissionAnalyticsByQuestion(questionId: number): Observable<SubmissionAnalytics[]> {
+        const params = new HttpParams()
+            .set('question', String(questionId));
+        const url = this.apiService.getURL('parsons-submission-analytics');
+        return this.http
+            .get<PaginatedResult<SubmissionAnalytics>>(url, {params})
+            .pipe(map(x => x.results))
+            .pipe(catchError(this.apiService.handleError<SubmissionAnalytics[]>(`Error Occurred while fetching user-specific data for this submission analytics`)));
+    }
+
+    getMCQSubmissionAnalyticsByQuestion(questionId: number): Observable<SubmissionAnalytics[]> {
+        const params = new HttpParams()
+            .set('question', String(questionId));
+        const url = this.apiService.getURL('mcq-submission-analytics');
         return this.http
             .get<PaginatedResult<SubmissionAnalytics>>(url, {params})
             .pipe(map(x => x.results))

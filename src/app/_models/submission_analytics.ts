@@ -1,20 +1,18 @@
-import {UQJ} from "@app/_models/uqj";
-import {QuestionSubmission} from "@app/_models/question_submission";
 import {Question} from "@app/_models/question";
 import {CourseEvent} from "@app/_models/course_event";
+import {User} from "@app/_models/user";
 
 export interface SubmissionAnalytics {
     id: number;
-    submission_type: string;
-    user_id: number;
+    user_id: User;
     first_name: string;
     last_name : string;
-    uqj: UQJ;
-    submission: QuestionSubmission
-    question : Question;
-    event: CourseEvent;
+    uqj: number;
+    submission: any;
+    question : number;
+    event: number;
     ans_file : JSON;
-    ans : string;
+    ans: string;
     lines : number;
     blank_lines : number;
     comment_lines : number;
@@ -40,6 +38,8 @@ export interface QuestionAnalytics {
     question: Question;
     event: CourseEvent;
     number_submission: number;
+    frequent_wrong_ans: string;
+    wrong_reason: string;
     avg_grade: number;
     correct_rate: number;
     lines : number;
@@ -65,18 +65,7 @@ export interface QuestionAnalytics {
 export interface EventAnalytics{
     id: number;
     event: CourseEvent;
+    num_question: number;
     avg_grade: number;
-    frequently_wrong_questions: JSON[];
+    frequent_wrong_questions: string;
 }
-
-// export interface WrongQuestion{
-//             question_number: string;
-//             title: string;
-//             text: string;
-//             answer: string;
-//             wrong_answer: string;
-//             reason_wrong: string;
-//             category: string;
-//             num_wrong: number;
-//             num_submission: number;
-// }

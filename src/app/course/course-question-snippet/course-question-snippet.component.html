@@ -41,6 +41,14 @@
                             Edit
                         </a>
                     </ng-container>
+                    <ng-container *ngIf="user.is_teacher">
+                        <!--TODO: Edit and view have radically different routes? Is this ok?-->
+                        <a tuiButton size="m" appearance="primary" class="tui-form__button"
+                           [routerLink]="['/course', courseId, 'problem', uqj.question.id, 'metrics']"
+                        >
+                            Metrics
+                        </a>
+                    </ng-container>
                 </div>
             </tui-island>
         </div>

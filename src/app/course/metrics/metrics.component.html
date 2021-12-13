@@ -1,0 +1,52 @@
+<!--<mat-paginator [length]="submission?submission.length:'0'"-->
+<!--              [pageSize]="10"-->
+<!--              aria-label="Select page">-->
+<!--</mat-paginator>-->
+<ng-container *ngIf="user?.is_teacher">
+<ng-container *ngIf="submissions; else tableEmpty">
+    <mat-accordion>
+        <mat-expansion-panel hideToggle *ngFor="let submission of submissions">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <p>Submission {{submission.id}}</p>
+                </mat-panel-title>
+                <mat-panel-description>
+                    From user: {{submission.first_name}} {{submission.last_name}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-list>
+
+                        <mat-list-item>Question title: {{submission.question.title}}</mat-list-item><mat-divider></mat-divider>
+                        <mat-list-item>Question text: {{submission.question.text}}</mat-list-item><mat-divider></mat-divider>
+<!--                        <mat-list-item>Question id : {{subm.q_id}}</mat-list-item><mat-divider></mat-divider>-->
+                        <mat-list-item>User id : {{submission.user_id}}</mat-list-item><mat-divider></mat-divider>
+                        <mat-list-item>Lines of Code : {{submission.lines}}</mat-list-item><mat-divider></mat-divider>
+                        <mat-list-item>Blank Lines : {{submission.blank_lines}}</mat-list-item><mat-divider></mat-divider>
+                        <mat-list-item>Lines with Comments : {{submission.comment_lines}}</mat-list-item><mat-divider></mat-divider>
+                        <mat-list-item>Lines with Import Statements : {{submission.import_lines}}</mat-list-item><mat-divider></mat-divider>
+                        <mat-list-item>Cyclomatic Complexity : {{submission.cc}}</mat-list-item><mat-divider></mat-divider>
+                        <mat-list-item>Number of Methods : {{submission.method}}</mat-list-item><mat-divider></mat-divider>
+                        <mat-list-item>Number of Operators : {{submission.operator}}</mat-list-item><mat-divider></mat-divider>
+                        <mat-list-item>Number of Operands : {{submission.operand}}</mat-list-item><mat-divider></mat-divider>
+
+<!--                        <mat-list-item> Answer File : </mat-list-item>-->
+<!--                        <div *ngFor="let file of subm.ans_file | keyvalue">-->
+<!--                            {{file.key}} : <br><textarea rows="10" style="width: 20% "> {{file.value}}</textarea>-->
+<!--                        </div>-->
+
+
+
+            </mat-list>
+        </mat-expansion-panel>
+    </mat-accordion>
+</ng-container>
+</ng-container>
+<ng-template #tableEmpty>
+        <tr>
+            <td class="bg-info" colspan="6">
+                <p class="text-center text-light m-0">There are currently no submissions in this course.</p>
+            </td>
+        </tr>
+</ng-template>
+
+

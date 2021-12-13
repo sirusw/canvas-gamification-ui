@@ -2,6 +2,7 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {QuestionAnalyticsService} from "@app/course/_services/question-analytics.service";
 
 @Component({
     selector: 'app-java-view-snippet',
@@ -14,7 +15,8 @@ export class JavaViewSnippetComponent implements OnInit {
 
     constructor(
         private submissionService: SubmissionService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
+        private questionAnalyticsService: QuestionAnalyticsService) {
     }
 
     ngOnInit(): void {
@@ -36,5 +38,6 @@ export class JavaViewSnippetComponent implements OnInit {
                         status: TuiNotification.Success
                     }).subscribe();
             });
+        this.questionAnalyticsService.initQuestionAnalytics().subscribe();
     }
 }

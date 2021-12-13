@@ -71,6 +71,9 @@ import {MatListModule} from "@angular/material/list";
 import {MatExpansionModule} from "@angular/material/expansion";
 import { MetricsViewComponent } from './metrics-view/metrics-view.component';
 import { EventMetricsViewComponent } from './event-metrics-view/event-metrics-view.component';
+import { JavaViewSnippetComponent } from './metrics-view/java-view-snippet/java-view-snippet.component';
+import { ParsonsViewSnippetComponent } from './metrics-view/parsons-view-snippet/parsons-view-snippet.component';
+import { McqViewSnippetComponent } from './metrics-view/mcq-view-snippet/mcq-view-snippet.component';
 
 
 @NgModule({
@@ -89,6 +92,9 @@ import { EventMetricsViewComponent } from './event-metrics-view/event-metrics-vi
         MetricsComponent,
         MetricsViewComponent,
         EventMetricsViewComponent,
+        JavaViewSnippetComponent,
+        ParsonsViewSnippetComponent,
+        McqViewSnippetComponent,
     ],
     imports: [
         CommonModule,

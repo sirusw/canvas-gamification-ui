@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {catchError, map} from "rxjs/operators";
 import {QuestionAnalytics} from "@app/_models/submission_analytics";
 import {PaginatedResult} from "@app/_models/paginatedResult";
+import {environment} from "@environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +23,7 @@ export class QuestionAnalyticsService {
     }
 
 
-    getAllQuestionMetrics(options?: {
+    getAllQuestionAnalytics(options?: {
         filters?: unknown,
         ordering?: unknown,
         page?: number,
@@ -45,16 +46,41 @@ export class QuestionAnalyticsService {
 
         return this.http
             .get<PaginatedResult<QuestionAnalytics>>(url, {params})
-            .pipe(catchError(this.apiService.handleError<PaginatedResult<QuestionAnalytics>>(`Error occurred while fetching submission analytics`)));
+            .pipe(catchError(this.apiService.handleError<PaginatedResult<QuestionAnalytics>>(`Error occurred while fetching question analytics`)));
     }
 
-    getQuestionMetricsByQuestion(questionId: number): Observable<QuestionAnalytics[]> {
+    getJavaQuestionAnalyticsByQuestion(questionId: number): Observable<QuestionAnalytics[]> {
         const params = new HttpParams()
             .set('question', String(questionId));
-        const url = this.apiService.getURL('question-analytics');
+        const url = this.apiService.getURL('java-question-analytics');
         return this.http
             .get<PaginatedResult<QuestionAnalytics>>(url, {params})
             .pipe(map(x => x.results))
-            .pipe(catchError(this.apiService.handleError<QuestionAnalytics[]>(`Error Occurred while fetching user-specific data for this submission analytics`)));
+            .pipe(catchError(this.apiService.handleError<QuestionAnalytics[]>(`Error Occurred while fetching user-specific data for this question analytics`)));
+    }
+
+    getParsonsQuestionAnalyticsByQuestion(questionId: number): Observable<QuestionAnalytics[]> {
+        const params = new HttpParams()
+            .set('question', String(questionId));
+        const url = this.apiService.getURL('parsons-question-analytics');
+        return this.http
+            .get<PaginatedResult<QuestionAnalytics>>(url, {params})
+            .pipe(map(x => x.results))
+            .pipe(catchError(this.apiService.handleError<QuestionAnalytics[]>(`Error Occurred while fetching user-specific data for this question analytics`)));
+    }
+
+    getMCQQuestionAnalyticsByQuestion(questionId: number): Observable<QuestionAnalytics[]> {
+        const params = new HttpParams()
+            .set('question', String(questionId));
+        const url = this.apiService.getURL('mcq-question-analytics');
+        return this.http
+            .get<PaginatedResult<QuestionAnalytics>>(url, {params})
+            .pipe(map(x => x.results))
+            .pipe(catchError(this.apiService.handleError<QuestionAnalytics[]>(`Error Occurred while fetching user-specific data for this question analytics`)));
+    }
+
+    initQuestionAnalytics(): Observable<any>{
+        const url =  new URL('analytics/question-analytics', environment.apiBaseUrl).toString();
+        return this.http.get(url);
     }
 }

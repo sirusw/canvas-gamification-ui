@@ -9,6 +9,7 @@ import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippe
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component";
 import {MetricsViewComponent} from "@app/course/metrics-view/metrics-view.component";
 import {EventMetricsViewComponent} from "@app/course/event-metrics-view/event-metrics-view.component";
+//import {EventMetricsViewComponent} from "@app/course/event-metrics-view/event-metrics-view.component";
 
 const routes = [
     {
@@ -61,11 +62,11 @@ const routes = [
         component: MetricsViewComponent,
         canActivate: [AuthGuard]
     },
-    // {
-    //     path: ':courseId/event/:id/metrics',
-    //     component: EventMetricsViewComponent,
-    //     canActivate: [AuthGuard]
-    // },
+    {
+        path: ':courseId/event/:eventId/metrics',
+        component: EventMetricsViewComponent,
+        canActivate: [AuthGuard]
+    },
 ];
 
 @NgModule({

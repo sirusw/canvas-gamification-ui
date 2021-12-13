@@ -4,6 +4,8 @@ import {Difficulty} from "@app/_models/difficulty";
 import {McqFormData} from "@app/problems/_forms/mcq.form";
 import {JavaFormData} from "@app/problems/_forms/java.form";
 import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
+import {EventAnalytics, QuestionAnalytics, SubmissionAnalytics} from "@app/_models/submission_analytics";
+import {MOCK_USER_STUDENT} from "@app/course/_test/mock";
 
 export const MOCK_CATEGORY: Category = {
     name: 'Test',
@@ -487,3 +489,202 @@ export const MOCK_COURSE: Course = {
     leader_board: null,
     has_create_event_permission: true
 };
+
+export const MOCK_EVENT_ANALYTICS: EventAnalytics = {
+    id: 0,
+    event: MOCK_COURSE_EVENT,
+    num_question: 0,
+    avg_grade: 0,
+    frequent_wrong_questions: null
+};
+
+export const MOCK_EVENT_ANALYTICS_2: EventAnalytics = {
+    id: 1,
+    event: MOCK_COURSE_EVENT,
+    num_question: 0,
+    avg_grade: 0,
+    frequent_wrong_questions: null
+};
+
+
+export const MOCK_EVENT_ANALYTICSS: EventAnalytics[] = [MOCK_EVENT_ANALYTICS, MOCK_EVENT_ANALYTICS_2];
+
+
+export const MOCK_QUESTION_ANALYTICS: QuestionAnalytics = {
+    id: 0,
+    question: MOCK_MCQ_QUESTION,
+    event: MOCK_COURSE_EVENT,
+    number_submission: 0,
+    frequent_wrong_ans: 'd',
+    wrong_reason: null,
+    avg_grade: 0,
+    correct_rate: 0,
+    lines : 0,
+    blank_lines : 0,
+    comment_lines : 0,
+    import_lines : 0,
+    cc : 0,
+    method : 0,
+    operator : 0,
+    operand : 0,
+    unique_operator : 0,
+    unique_operand : 0,
+    vocab : 0,
+    size : 0,
+    vol : 0,
+    difficulty : 0,
+    effort : 0,
+    error : 0,
+    test_time : 0,
+};
+
+export const MOCK_QUESTION_ANALYTICS_2: QuestionAnalytics = {
+    id: 1,
+    question: MOCK_JAVA_QUESTION,
+    event: MOCK_COURSE_EVENT,
+    number_submission: 0,
+    frequent_wrong_ans: null,
+    wrong_reason: 'something',
+    avg_grade: 0,
+    correct_rate: 0,
+    lines : 12,
+    blank_lines : 0,
+    comment_lines : 2,
+    import_lines : 1,
+    cc : 3,
+    method : 1,
+    operator : 2,
+    operand : 2,
+    unique_operator : 2,
+    unique_operand :2,
+    vocab : 5,
+    size : 4,
+    vol : 5,
+    difficulty : 1,
+    effort : 5,
+    error : 1,
+    test_time : 2.1,
+};
+
+export const MOCK_QUESTION_ANALYTICS_3: QuestionAnalytics = {
+    id: 1,
+    question: MOCK_PARSONS_QUESTION,
+    event: MOCK_COURSE_EVENT,
+    number_submission: 0,
+    frequent_wrong_ans: null,
+    wrong_reason: 'something',
+    avg_grade: 0,
+    correct_rate: 0,
+    lines : 12,
+    blank_lines : 0,
+    comment_lines : 2,
+    import_lines : 1,
+    cc : 3,
+    method : 1,
+    operator : 2,
+    operand : 2,
+    unique_operator : 2,
+    unique_operand :2,
+    vocab : 5,
+    size : 4,
+    vol : 5,
+    difficulty : 1,
+    effort : 5,
+    error : 1,
+    test_time : 2.1,
+};
+
+export const MOCK_QUESTION_ANALYTICSS: QuestionAnalytics[] = [MOCK_QUESTION_ANALYTICS, MOCK_QUESTION_ANALYTICS_2, MOCK_QUESTION_ANALYTICS_3];
+
+export const MOCK_SUBMISSION_ANALYTICS: SubmissionAnalytics = {
+    id: 0,
+    user_id: MOCK_USER_STUDENT,
+    first_name: 'John',
+    last_name : 'Doe',
+    uqj: 0,
+    submission: 0,
+    question : 0,
+    event: 0,
+    ans_file : null,
+    ans: 'd',
+    lines : 0,
+    blank_lines : 0,
+    comment_lines : 0,
+    import_lines : 0,
+    cc : 0,
+    method : 0,
+    operator : 0,
+    operand : 0,
+    unique_operator : 0,
+    unique_operand : 0,
+    vocab : 0,
+    size : 0,
+    vol : 0,
+    difficulty : 0,
+    effort : 0,
+    error : 0,
+    test_time : 0
+};
+
+export const MOCK_SUBMISSION_ANALYTICS_2: SubmissionAnalytics = {
+    id: 1,
+    user_id: MOCK_USER_STUDENT,
+    first_name: 'John',
+    last_name : 'Doe',
+    uqj: 0,
+    submission: 0,
+    question : 0,
+    event: 0,
+    ans_file : JSON.parse('{"hello": hi}'),
+    ans: '',
+    lines : 12,
+    blank_lines : 0,
+    comment_lines : 2,
+    import_lines : 1,
+    cc : 3,
+    method : 1,
+    operator : 2,
+    operand : 2,
+    unique_operator : 2,
+    unique_operand :2,
+    vocab : 5,
+    size : 4,
+    vol : 5,
+    difficulty : 1,
+    effort : 5,
+    error : 1,
+    test_time : 2.1,
+};
+
+export const MOCK_SUBMISSION_ANALYTICS_3: SubmissionAnalytics = {
+    id: 2,
+    user_id: MOCK_USER_STUDENT,
+    first_name: 'John',
+    last_name : 'Doe',
+    uqj: 0,
+    submission: 0,
+    question : 0,
+    event: 0,
+    ans_file : JSON.parse('{"hello": hi}'),
+    ans: '',
+    lines : 12,
+    blank_lines : 0,
+    comment_lines : 2,
+    import_lines : 1,
+    cc : 3,
+    method : 1,
+    operator : 2,
+    operand : 2,
+    unique_operator : 2,
+    unique_operand :2,
+    vocab : 5,
+    size : 4,
+    vol : 5,
+    difficulty : 1,
+    effort : 5,
+    error : 1,
+    test_time : 2.1,
+};
+
+export const MOCK_SUBMISSION_ANALYTICSS: SubmissionAnalytics[] = [MOCK_SUBMISSION_ANALYTICS, MOCK_SUBMISSION_ANALYTICS_2, MOCK_SUBMISSION_ANALYTICS_3];
+

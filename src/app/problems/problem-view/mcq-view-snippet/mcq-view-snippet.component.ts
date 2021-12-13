@@ -4,6 +4,7 @@ import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {QuestionAnalyticsService} from "@app/course/_services/question-analytics.service";
 
 @Component({
     selector: 'app-mcq-view-snippet',
@@ -18,6 +19,7 @@ export class McqViewSnippetComponent implements OnInit {
     checkboxAnswers: string[];
 
     constructor(private submissionService: SubmissionService,
+                private questionAnalyticsService: QuestionAnalyticsService,
                 private formBuilder: FormBuilder,
                 private sanitizer: DomSanitizer,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
@@ -66,6 +68,7 @@ export class McqViewSnippetComponent implements OnInit {
                         status: TuiNotification.Success
                     }).subscribe();
             });
+        this.questionAnalyticsService.initQuestionAnalytics().subscribe();
     }
 
     /**
