@@ -51,6 +51,13 @@
             >
                 Edit
             </a>
+            <ng-container *ngIf="user?.is_teacher">
+                <a tuiButton appearance="primary" size="m" class="tui-form__button"
+                   [routerLink]="['/course', courseId, 'event', event.id, 'analytics']"
+                >
+                    Analytics
+                </a>
+            </ng-container>
         </div>
     </tui-island>
 </div>

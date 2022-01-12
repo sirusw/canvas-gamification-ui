@@ -7,6 +7,7 @@ import {CourseComponent} from "@app/course/course.component";
 import {CourseEventCreateEditComponent} from "@app/course/course-event-create/course-event-create-edit.component";
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component";
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component";
+import {EventAnalyticsComponent} from "@app/course/event-analytics/event-analytics.component";
 
 const routes = [
     {
@@ -47,6 +48,11 @@ const routes = [
     {
         path: ':courseId/event/:eventId/problem/:id',
         component: ProblemViewComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: ':courseId/event/:eventId/analytics',
+        component: EventAnalyticsComponent,
         canActivate: [AuthGuard]
     },
 ];

@@ -68,6 +68,7 @@ import {DragulaModule} from "ng2-dragula";
 import { AnalyticsComponent } from './analytics/analytics.component';
 import {TuiAxesModule, TuiBarChartModule, TuiLineChartModule} from "@taiga-ui/addon-charts";
 import {AdminModule} from "@app/admin/admin.module";
+import { EventAnalyticsComponent } from './event-analytics/event-analytics.component';
 
 @NgModule({
     declarations: [
@@ -82,7 +83,8 @@ import {AdminModule} from "@app/admin/admin.module";
         ConceptMapComponent,
         CourseRegistrationStepperComponent,
         CourseRegistrationStepComponent,
-        AnalyticsComponent
+        AnalyticsComponent,
+        EventAnalyticsComponent
     ],
     imports: [
         CommonModule,

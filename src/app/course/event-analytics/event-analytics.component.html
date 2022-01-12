@@ -1,0 +1,72 @@
+<br>
+<p class="tui-text_h6" >Event Summary</p>
+<div class="tui-container tui-container_adaptive tui-container_example">
+        <div class="tui-row tui-row_adaptive">
+            <div class="tui-col_xs-12 tui-col_md-2 tui-col_lg-2">
+                <p class="tui-text_body-m">Average score</p>
+                <p class="tui-text_body-m">84.21%</p>
+            </div>
+            <div class="tui-col_xs-12 tui-col_md-2 tui-col_lg-2">
+                <p class="tui-text_body-m">High score</p>
+                <p class="tui-text_body-m">99.30%</p>
+            </div>
+            <div class="tui-col_xs-12 tui-col_md-2 tui-col_lg-2">
+                <p class="tui-text_body-m">Low score</p>
+                <p class="tui-text_body-m">42.13%</p>
+            </div>
+            <div class="tui-col_xs-12 tui-col_md-2 tui-col_lg-2">
+                <p class="tui-text_body-m">Standard Deviation</p>
+                <p class="tui-text_body-m">3.25</p>
+            </div>
+            <div class="tui-col_xs-12 tui-col_md-2 tui-col_lg-2">
+                <p class="tui-text_body-m">Participants</p>
+                <p class="tui-text_body-m">54</p>
+            </div>
+            <div class="tui-col_xs-12 tui-col_md-2 tui-col_lg-2">
+                <p class="tui-text_body-m">Enrolled</p>
+                <p class="tui-text_body-m">55</p>
+            </div>
+        </div>
+</div>
+
+
+<tui-axes class="axes" [axisXLabels]="gradeX" [axisYLabels]="gradeY">
+    <tui-bar-chart [max]="20" [value]="gradeDistr"></tui-bar-chart>
+</tui-axes>
+<br>
+<p class="tui-text_h6" >Event Breakdown</p>
+<br>
+<div class="card">
+      <div class="container">
+      <table>
+
+              <p class="tui-text_body-l"><b>Question 1: What is the purpose of a variable in Java?</b></p>
+          <tr>
+              <td class="tui-text_body-m">Used to repeatedly perform a single task</td>
+              <td>3 Respondents</td>
+              <td>5.5%</td>
+          </tr>
+          <tr>
+              <td class="tui-text_body-m">Used to identify a portion of the program</td>
+              <td>0 Respondents</td>
+              <td>0%</td>
+          </tr>
+          <tr>
+              <td class="tui-text_body-m">Used to change the appearance of the program</td>
+              <td>0 Respondents</td>
+              <td>0%</td>
+          </tr>
+          <tr>
+              <td class="tui-text_body-m" style="color: #3aa981"><b>Used to store data that can be used or modified as needed</b></td>
+              <td class="tui-text_body-m" style="color: #3aa981">51 Respondents</td>
+              <td class="tui-text_body-m" style="color: #3aa981">94.5%</td>
+          </tr>
+
+
+
+
+      </table>
+
+      </div>
+</div>
+
