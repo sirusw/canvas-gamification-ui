@@ -8,6 +8,7 @@ import {CourseEventCreateEditComponent} from "@app/course/course-event-create/co
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component";
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component";
 import {EventAnalyticsComponent} from "@app/course/event-analytics/event-analytics.component";
+import {PracticeProblemComponent} from "@app/course/practice-problem/practice-problem.component";
 
 const routes = [
     {
@@ -55,6 +56,11 @@ const routes = [
         component: EventAnalyticsComponent,
         canActivate: [AuthGuard]
     },
+    {
+        path: ':courseId/practice/category/:categoryId',
+        component: PracticeProblemComponent,
+        canActivate: [AuthGuard]
+    }
 ];
 
 @NgModule({
