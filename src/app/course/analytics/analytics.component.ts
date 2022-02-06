@@ -2,9 +2,6 @@ import {Component,  Input, OnInit} from '@angular/core';
 import {Course} from "@app/_models";
 import {ceil, TUI_DEFAULT_STRINGIFY, TuiContextWithImplicit, TuiStringHandler} from "@taiga-ui/cdk";
 import {TuiPoint} from "@taiga-ui/core";
-import {delay, filter, startWith, switchMap} from "rxjs/operators";
-import {FormControl} from "@angular/forms";
-import {Observable, of, Subject} from "rxjs";
 
 @Component({
     selector: 'app-analytics',

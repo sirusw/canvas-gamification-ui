@@ -93,7 +93,7 @@ import {ProblemsModule} from "@app/problems/problems.module";
         CourseRegistrationStepComponent,
         AnalyticsComponent,
         EventAnalyticsComponent,
-        PracticeProblemComponent
+        PracticeProblemComponent,
     ],
     imports: [
         CommonModule,
@@ -146,6 +146,10 @@ import {ProblemsModule} from "@app/problems/problems.module";
         CourseIslandModule,
         PipesModule,
         ProblemsModule,
+        TuiProgressModule,
+        TuiAxesModule,
+        TuiBarChartModule,
+        TuiLineChartModule,
     ],
     providers: [
         CourseService,
