@@ -77,6 +77,7 @@ import {CourseIslandModule} from "@app/components/course-island/course-island.mo
 import {PipesModule} from "@app/_helpers/pipes/pipes.module";
 import {PracticeProblemComponent} from './practice-problem/practice-problem.component';
 import {ProblemsModule} from "@app/problems/problems.module";
+import { StudentComponent } from './analytics/student/student.component';
 
 @NgModule({
     declarations: [
@@ -94,6 +95,7 @@ import {ProblemsModule} from "@app/problems/problems.module";
         AnalyticsComponent,
         EventAnalyticsComponent,
         PracticeProblemComponent,
+        StudentComponent,
     ],
     imports: [
         CommonModule,

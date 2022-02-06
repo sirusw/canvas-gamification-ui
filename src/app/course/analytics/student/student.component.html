@@ -1,0 +1,46 @@
+<p>student works!</p>
+<p class="tui-text_h6">{{userAnalytics?.length}} Students</p><br>
+<ng-container>
+    <div  *ngFor="let analytics of userAnalytics">
+                {{analytics.user.first_name}} {{analytics.user.last_name}}
+                {{analytics.past_week_question_views}}
+                {{analytics.last_active}}
+                {{analytics.submissions}}
+                {{analytics.missing_submissions}}
+                {{analytics.current_score}}
+        </div>
+    <table tuiTable [columns]="userColumns">
+        <thead>
+        <tr tuiThGroup>
+            <th *tuiHead="'name'" tuiTh>Name</th>
+            <th *tuiHead="'past_week_question_views'" tuiTh>Past Week Question Page Views</th>
+            <th *tuiHead="'last_active'" tuiTh>Last Time Active</th>
+            <th *tuiHead="'submissions'" tuiTh>Submissions</th>
+            <th *tuiHead="'missing_submissions'" tuiTh>Missing Submissions</th>
+            <th *tuiHead="'current_score'" tuiTh>Current Score</th>
+        </tr>
+        </thead>
+        <tbody tuiTbody [data]="userAnalytics">
+        <tr tuiTr *tuiRow="let analytics of userAnalytics">
+            <td *tuiCell="'user'" tuiTd>
+                {{analytics.user.first_name}} {{analytics.user.last_name}}
+            </td>
+            <td *tuiCell="'past_week_question_views'" tuiTd>
+                {{analytics.past_week_question_views}}
+            </td>
+            <td *tuiCell="'last_active'" tuiTd>
+                {{analytics.last_active}}
+            </td>
+            <td *tuiCell="'submissions'" tuiTd>
+                {{analytics.submissions}}
+            </td>
+            <td *tuiCell="'missing_submissions'" tuiTd>
+                {{analytics.missing_submissions}}
+            </td>
+            <td *tuiCell="'current_score'" tuiTd>
+                {{analytics.current_score}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</ng-container>

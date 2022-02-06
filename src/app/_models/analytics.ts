@@ -1,6 +1,7 @@
 import {Course} from "@app/_models/course";
 import {CourseEvent} from "@app/_models/course_event";
 import {Question} from "@app/_models/question";
+import {User} from "@app/_models/user";
 
 export interface QuestionAnalytics{
     id: number;
@@ -47,4 +48,17 @@ export interface EventAnalytics {
     avg_score_st_dev: number;
     num_participants: number;
     grades: JSON;
+}
+
+export type UserAnalytics = {
+    id: number;
+    time_created: Date;
+    course: Course;
+    user: User;
+    submissions: number;
+    missing_submissions: number;
+    current_score: number;
+    past_week_question_views: number;
+    last_active: Date;
+
 }

@@ -2,6 +2,8 @@ import {Component,  Input, OnInit} from '@angular/core';
 import {Course} from "@app/_models";
 import {ceil, TUI_DEFAULT_STRINGIFY, TuiContextWithImplicit, TuiStringHandler} from "@taiga-ui/cdk";
 import {TuiPoint} from "@taiga-ui/core";
+import {UserAnalyticsService} from "@app/course/_services/user-analytics.service";
+import {UserAnalytics} from "@app/_models/analytics";
 
 @Component({
     selector: 'app-analytics',
@@ -10,6 +12,8 @@ import {TuiPoint} from "@taiga-ui/core";
 })
 export class AnalyticsComponent implements OnInit {
     @Input() course: Course;
+    userAnalytics: UserAnalytics[];
+    userColumns: string[]
     readonly max = 100;
     readonly avgGrade = 84.67
 
@@ -180,10 +184,13 @@ export class AnalyticsComponent implements OnInit {
 
 
 
-    constructor() {}
+    constructor(private userAnalyticsService: UserAnalyticsService) {}
 
     ngOnInit(): void {
-
+        this.userAnalyticsService.getAllUserAnalyticsByCourse(this.course.id).subscribe(
+            analytics => this.userAnalytics = analytics
+        );
+        this.userColumns = ['Name', 'Past Week Question Page Views', 'Last Time Active', 'Submissions', 'Missing Submissions', 'Current Score'];
 
 
     }
