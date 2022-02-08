@@ -2,9 +2,6 @@ import {Component,  Input, OnInit} from '@angular/core';
 import {Course} from "@app/_models";
 import {ceil, TUI_DEFAULT_STRINGIFY, TuiContextWithImplicit, TuiStringHandler} from "@taiga-ui/cdk";
 import {TuiPoint} from "@taiga-ui/core";
-import {UserAnalyticsService} from "@app/course/_services/user-analytics.service";
-import {UserAnalytics} from "@app/_models/analytics";
-
 @Component({
     selector: 'app-analytics',
     templateUrl: './analytics.component.html',
@@ -12,10 +9,8 @@ import {UserAnalytics} from "@app/_models/analytics";
 })
 export class AnalyticsComponent implements OnInit {
     @Input() course: Course;
-    userAnalytics: UserAnalytics[];
-    userColumns: string[]
     readonly max = 100;
-    readonly avgGrade = 84.67
+    course_grade: number;
 
      readonly grade = [
          [74, 66, 88, 78, 99]
@@ -52,87 +47,12 @@ export class AnalyticsComponent implements OnInit {
     search = ""
 
 
-
-
-
     readonly items = [
         'Student',
         'Teacher',
     ];
 
     val = '';
-
-
-
-    readonly students = [
-        {
-            name: 'John Doe',
-            pageView:'123',
-            lastActive: 'Jan. 6, 2022',
-            submission: '22',
-            missing: '4',
-            score: '85.3%',
-            categoryStruggling: 'OOP, loop'
-
-        },
-        {
-            name: 'Jane Doe',
-            riskType: 'Dropout',
-            pageView:'33',
-            lastActive: 'Dec. 22, 2022',
-            submission: '8',
-            missing: '18',
-            score: '56.4%',
-            categoryStruggling: 'Basics, method, OOP, loop'
-        },
-        {
-            name: 'Alex Inkin',
-            riskType: 'Struggling',
-            pageView:'231',
-            lastActive: 'Jan. 6, 2022',
-            submission: '26',
-            missing: '1',
-            score: '66.5%',
-            categoryStruggling: 'OOP, loop'
-        },
-        {
-            name: 'Roman Sedov',
-            pageView:'123',
-            lastActive: 'Jan. 6, 2022',
-            submission: '22',
-            missing: '4',
-            score: '85.3%',
-            categoryStruggling: 'OOP, loop'
-        }
-    ];
-
-    readonly atRiskStudents = [
-        {
-            name: 'Jane Doe',
-            riskType: 'Dropout',
-            pageView:'33',
-            lastActive: 'Dec. 22, 2022',
-            submission: '8',
-            missing: '18',
-            score: '56.4%',
-            categoryStruggling: 'Basics, method, OOP, loop'
-        },
-        {
-            name: 'Alex Inkin',
-            riskType: 'Struggling',
-            pageView:'231',
-            lastActive: 'Jan. 6, 2022',
-            submission: '26',
-            missing: '1',
-            score: '66.5%',
-            categoryStruggling: 'OOP, loop'
-        },
-    ];
-
-    readonly atRiskCol = Object.keys(this.atRiskStudents[0]);
-
-    readonly columns = Object.keys(this.students[0]);
-
     readonly viewby = ['All Question', 'Event', 'Category']
 
     readonly questions = [
@@ -184,15 +104,19 @@ export class AnalyticsComponent implements OnInit {
 
 
 
-    constructor(private userAnalyticsService: UserAnalyticsService) {}
+    constructor() {}
 
     ngOnInit(): void {
-        this.userAnalyticsService.getAllUserAnalyticsByCourse(this.course.id).subscribe(
-            analytics => this.userAnalytics = analytics
-        );
-        this.userColumns = ['Name', 'Past Week Question Page Views', 'Last Time Active', 'Submissions', 'Missing Submissions', 'Current Score'];
+        this.course_grade = this.get_avg_course_grade();
+    }
 
-
+    get_avg_course_grade(): number{
+        if(this.course.events.length == 0) return 0;
+        let totalGrade = 0;
+        for(let i = 0; i < this.course.events.length; i++){
+            totalGrade += this.course.events[i].total_event_grade;
+        }
+        return totalGrade / this.course.events.length;
     }
 
 }

@@ -12,7 +12,7 @@ export class StudentComponent implements OnInit {
 
     @Input() course: Course;
     userAnalytics: UserAnalytics[];
-    userColumns: string[] =  ['Name', 'Past Week Question Page Views', 'Last Time Active', 'Submissions', 'Missing Submissions', 'Current Score'];
+    userColumns: string[] =  ['user', 'past_week_question_views', 'last_active', 'submissions', 'missing_submissions', 'current_score'];
 
     constructor(private userAnalyticsService: UserAnalyticsService) {
 
@@ -22,7 +22,6 @@ export class StudentComponent implements OnInit {
         this.userAnalyticsService.getAllUserAnalyticsByCourse(this.course?.id).subscribe(
             analytics => {
                 this.userAnalytics = analytics;
-                console.log(this.userAnalytics);
             }
         );
     }

@@ -152,6 +152,8 @@ import { StudentComponent } from './analytics/student/student.component';
         TuiAxesModule,
         TuiBarChartModule,
         TuiLineChartModule,
+        AdminModule,
+        TuiBadgeModule,
     ],
     providers: [
         CourseService,

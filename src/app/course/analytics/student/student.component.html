@@ -1,18 +1,10 @@
-<p>student works!</p>
 <p class="tui-text_h6">{{userAnalytics?.length}} Students</p><br>
+<p class="tui-text_body-m" style="color: var(--tui-text-02)">Click on column names to sort</p>
 <ng-container>
-    <div  *ngFor="let analytics of userAnalytics">
-                {{analytics.user.first_name}} {{analytics.user.last_name}}
-                {{analytics.past_week_question_views}}
-                {{analytics.last_active}}
-                {{analytics.submissions}}
-                {{analytics.missing_submissions}}
-                {{analytics.current_score}}
-        </div>
     <table tuiTable [columns]="userColumns">
         <thead>
         <tr tuiThGroup>
-            <th *tuiHead="'name'" tuiTh>Name</th>
+            <th *tuiHead="'user'" tuiTh>Name</th>
             <th *tuiHead="'past_week_question_views'" tuiTh>Past Week Question Page Views</th>
             <th *tuiHead="'last_active'" tuiTh>Last Time Active</th>
             <th *tuiHead="'submissions'" tuiTh>Submissions</th>
@@ -23,13 +15,13 @@
         <tbody tuiTbody [data]="userAnalytics">
         <tr tuiTr *tuiRow="let analytics of userAnalytics">
             <td *tuiCell="'user'" tuiTd>
-                {{analytics.user.first_name}} {{analytics.user.last_name}}
+                {{analytics.user.first_name ? analytics.user.first_name: 'User ' + analytics.user.id}} {{analytics.user.last_name ? analytics.user.last_name : ''}}
             </td>
             <td *tuiCell="'past_week_question_views'" tuiTd>
                 {{analytics.past_week_question_views}}
             </td>
             <td *tuiCell="'last_active'" tuiTd>
-                {{analytics.last_active}}
+                {{analytics.last_active | date:'medium'}}
             </td>
             <td *tuiCell="'submissions'" tuiTd>
                 {{analytics.submissions}}
@@ -44,3 +36,124 @@
         </tbody>
     </table>
 </ng-container>
+
+
+<!--<tui-input icon="tuiIconSearchLarge" [(ngModel)]="search">Search People</tui-input>-->
+<!--    <br><br>-->
+<!--    <div class="tui-container tui-container_adaptive tui-container_example" style="margin-left: 0; width: 100%">-->
+<!--        <div class="tui-row tui-row_adaptive">-->
+<!--            <div class="tui-col_xs-12 tui-col_md-7 tui-col_lg-7">-->
+<!--                <p class="tui-text_h6">37 Students</p><br>-->
+<!--                <table tuiTable class="table" [columns]="columns">-->
+<!--                    <thead>-->
+<!--                    <tr tuiThGroup>-->
+<!--                        <th tuiTh [resizable]="true">Name</th>-->
+<!--                        <th tuiTh>Page View</th>-->
+<!--                        <th tuiTh>Last Time Active</th>-->
+<!--                        <th tuiTh>Submission</th>-->
+<!--                        <th tuiTh>Missing Submission</th>-->
+<!--                        <th tuiTh>Current Score</th>-->
+<!--                        <th tuiTh>Concepts Struggling With</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody tuiTbody [data]="students">-->
+<!--                    <tr *tuiRow="let item of students" tuiTr>-->
+<!--                        <td *tuiCell="'name'" tuiTd>-->
+<!--                            <a href="">{{item.name}}</a>-->
+<!--                        </td>-->
+<!--                        <td *tuiCell="'pageView'" tuiTd>-->
+<!--                            {{item.pageView}}-->
+<!--                        </td>-->
+<!--                        <td *tuiCell="'lastActive'" tuiTd>-->
+<!--                            {{item.lastActive}}-->
+<!--                        </td>-->
+<!--                        <td *tuiCell="'submission'" tuiTd>-->
+<!--                            {{item.submission}}-->
+<!--                        </td>-->
+<!--                        <td *tuiCell="'missing'" tuiTd>-->
+<!--                            {{item.missing}}-->
+<!--                        </td>-->
+<!--                        <td *tuiCell="'score'" tuiTd>-->
+<!--                            {{item.score}}-->
+<!--                        </td>-->
+<!--                        <td *tuiCell="'categoryStruggling'" tuiTd>-->
+<!--                            {{item.categoryStruggling}}-->
+<!--                        </td>-->
+
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--            <div class="tui-col_xs-12 tui-col_md-5 tui-col_lg-5">-->
+<!--                <div class="card">-->
+<!--                  <div class="container">-->
+<!--                    <tui-notification status="warning" class="tui-space_top-4">-->
+<!--                        Potential At-Risk Students-->
+<!--                    </tui-notification><br>-->
+<!--                    <table tuiTable class="table" [columns]="atRiskCol">-->
+<!--                        <thead>-->
+<!--                        <tr tuiThGroup>-->
+<!--                            <th tuiTh [resizable]="true">Name</th>-->
+<!--                            <th tuiTh>Risk Type</th>-->
+<!--                            <th tuiTh>Page View</th>-->
+<!--                            <th tuiTh>Last Time Active</th>-->
+<!--                            <th tuiTh>Submission</th>-->
+<!--                            <th tuiTh>Missing Submission</th>-->
+<!--                            <th tuiTh>Current Score</th>-->
+<!--                            <th tuiTh>Concepts Struggling With</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody tuiTbody [data]="atRiskStudents">-->
+<!--                        <tr *tuiRow="let item of atRiskStudents" tuiTr>-->
+<!--                            <td *tuiCell="'name'" tuiTd>-->
+<!--                                <a href="">{{item.name}}</a>-->
+<!--                            </td>-->
+<!--                            <td *tuiCell="'riskType'" tuiTd>-->
+<!--                                <div *ngIf="item.riskType === 'Dropout'">-->
+<!--                                    <tui-badge-->
+<!--                                        status="error"-->
+<!--                                        value="Dropout"-->
+<!--                                        class="tui-space_right-2"-->
+<!--                                    ></tui-badge>-->
+<!--                                </div>-->
+<!--                                <div *ngIf="item.riskType === 'Struggling'">-->
+<!--                                    <tui-badge-->
+<!--                                        status="warning"-->
+<!--                                        value="Struggling"-->
+<!--                                        class="tui-space_right-2"-->
+<!--                                    ></tui-badge>-->
+<!--                                </div>-->
+<!--                            </td>-->
+
+<!--                            <td *tuiCell="'pageView'" tuiTd>-->
+<!--                                {{item.pageView}}-->
+<!--                                <p style="color: #dd4c1e">↓ -35</p>-->
+<!--                            </td>-->
+<!--                            <td *tuiCell="'lastActive'" tuiTd>-->
+<!--                                {{item.lastActive}}-->
+<!--                            </td>-->
+<!--                            <td *tuiCell="'submission'" tuiTd>-->
+<!--                                {{item.submission}}-->
+<!--                                <p style="color: #3aa981">↑ +1</p>-->
+<!--                            </td>-->
+<!--                            <td *tuiCell="'missing'" tuiTd>-->
+<!--                                {{item.missing}}-->
+<!--                                <p style="color: #dd4c1e">↑ +7</p>-->
+<!--                            </td>-->
+<!--                            <td *tuiCell="'score'" tuiTd>-->
+<!--                                {{item.score}}-->
+<!--                            </td>-->
+<!--                            <td *tuiCell="'categoryStruggling'" tuiTd>-->
+<!--                                {{item.categoryStruggling}}-->
+<!--                            </td>-->
+
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+
+<!--                  </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
