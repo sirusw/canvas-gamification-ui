@@ -23,7 +23,7 @@ export class QuestionAnalyticsService {
 
 
     getAllQuestionAnalytics(): Observable<QuestionAnalytics[]> {
-        const url = this.apiService.getURL('question-analytics', 'question');
+        const url = this.apiService.getURL('analytics', 'question', 'question');
 
         return this.http
             .get<QuestionAnalytics[]>(url)
@@ -33,7 +33,7 @@ export class QuestionAnalyticsService {
     getQuestionAnalyticsByQuestion(questionId: number): Observable<QuestionAnalytics> {
         const params = new HttpParams()
             .set('id', String(questionId));
-        const url = this.apiService.getURL('question-analytics', 'question');
+        const url = this.apiService.getURL('analytics', 'question', 'question');
         return this.http
             .get<QuestionAnalytics>(url, {params})
             .pipe(catchError(this.apiService.handleError<QuestionAnalytics>(`Error Occurred while fetching user-specific data for this question analytics`)));
@@ -42,7 +42,7 @@ export class QuestionAnalyticsService {
     getQuestionAnalyticsByEvent(eventId: number): Observable<QuestionAnalytics[]> {
         const params = new HttpParams()
             .set('id', String(eventId));
-        const url = this.apiService.getURL('question-analytics', 'event');
+        const url = this.apiService.getURL('analytics', 'question', 'event');
         return this.http
             .get<QuestionAnalytics[]>(url, {params})
             .pipe(catchError(this.apiService.handleError<QuestionAnalytics[]>(`Error Occurred while fetching user-specific data for this question analytics`)));

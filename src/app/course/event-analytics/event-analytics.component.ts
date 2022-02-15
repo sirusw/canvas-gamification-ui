@@ -1,25 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import {EventAnalytics, QuestionAnalytics} from "@app/_models/analytics";
+import {Component, OnInit} from '@angular/core';
+import {EventAnalytics} from "@app/_models/analytics";
 import {ActivatedRoute} from "@angular/router";
 import {EventAnalyticsService} from "@app/course/_services/event-analytics.service";
-import {QuestionAnalyticsService} from "@app/course/_services/question-analytics.service";
-import {UqjService} from "@app/problems/_services/uqj.service";
-import {Question, UQJ} from "@app/_models";
 
 @Component({
-  selector: 'app-event-analytics',
-  templateUrl: './event-analytics.component.html',
-  styleUrls: ['./event-analytics.component.scss']
+    selector: 'app-event-analytics',
+    templateUrl: './event-analytics.component.html',
+    styleUrls: ['./event-analytics.component.scss']
 })
 export class EventAnalyticsComponent implements OnInit {
 
     eventId: number;
     eventAnalytics: EventAnalytics;
-    questionAnalytics: QuestionAnalytics[];
-    uqjs: UQJ[] = [];
-    wrong_ans_distr: [{[question: string]: {[ans: string]:  number}}]
-    constructor(private eventAnalyticsService: EventAnalyticsService, private route: ActivatedRoute,
-                private questionAnalyticsService: QuestionAnalyticsService, private uqjService: UqjService) {}
+    constructor(private eventAnalyticsService: EventAnalyticsService, private route: ActivatedRoute) {}
+
 
 
     ngOnInit(): void {
@@ -30,45 +24,21 @@ export class EventAnalyticsComponent implements OnInit {
                 this.calcGradeDistribution(eventAnalytics.grades['grades']);
             }
         );
-        this.questionAnalyticsService.getQuestionAnalyticsByEvent(Number(this.route.snapshot.paramMap.get('eventId'))).subscribe(
-            questionAnalytics => {
-                this.questionAnalytics = questionAnalytics;
-                for(let i = 0; i<questionAnalytics.length; i++){
-                    this.uqjService.getUQJByQuestion(questionAnalytics[i].question.id).subscribe(
-                        uqj => {
-                            this.uqjs.push(uqj);
-                        }
-                    );
-                }
-            }
-        );
     }
-    readonly gradeX = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%']
-    readonly gradeY = ['0', '5', '10' ,'15', '20'];
+    // @ViewChild('loading', { static: false }) loading: ElementRef;
 
-    readonly gradeDistr = [
-        [0, 0, 2, 5, 13, 14, 10, 20, 15, 5, 1]
-    ];
 
     calcGradeDistribution(grades: number[]): number[]{
         return [0,1];
     }
 
-    getUQJ(question: Question): UQJ{
-        for(let i in this.uqjs){
-            if(this.uqjs[i].question.id === question.id){
-                return this.uqjs[i];
-            }
-        }
-        return null;
-    }
-
-    getResponsePercentage(analytics: QuestionAnalytics, answer: string): string{
-        let sum = 0;
-        sum += analytics.most_frequent_wrong_ans[0]['a'];
-        sum += analytics.most_frequent_wrong_ans[0]['b'];
-        sum += analytics.most_frequent_wrong_ans[0]['c'];
-        sum += analytics.most_frequent_wrong_ans[0]['d'];
-        return String(analytics.most_frequent_wrong_ans[0][answer] / sum * 100) + "%";
-    }
+    // getPassingPercentage(analytics: QuestionAnalytics): string{
+    //     let sum = 0;
+    //     if(analytics.num_passed_submissions[0]){
+    //         for(let i in analytics.num_passed_submissions[0]){
+    //             sum += analytics.num_passed_submissions[0][i]
+    //         }
+    //     }
+    //     return String(sum / sum * 100) + "%";
+    // }
 }

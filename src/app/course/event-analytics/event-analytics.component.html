@@ -1,174 +1,45 @@
 <br>
-<p class="tui-text_h6">Event Summary</p>
-<ng-container class="tui-container tui-container_adaptive tui-container_example">
-    <div class="tui-row tui-row_adaptive">
-        <div class="tui-col_xs-12 tui-col_md-2 tui-col_lg-2">
-            <p class="tui-text_body-m">Average score</p>
-            <p class="tui-text_body-m">{{eventAnalytics?.avg_score}}%</p>
-        </div>
-        <div class="tui-col_xs-12 tui-col_md-2 tui-col_lg-2">
-            <p class="tui-text_body-m">High score</p>
-            <p class="tui-text_body-m">{{eventAnalytics?.high_score}}%</p>
-        </div>
-        <div class="tui-col_xs-12 tui-col_md-2 tui-col_lg-2">
-            <p class="tui-text_body-m">Low score</p>
-            <p class="tui-text_body-m">{{eventAnalytics?.lowest_score}}%</p>
-        </div>
-        <div class="tui-col_xs-12 tui-col_md-2 tui-col_lg-2">
-            <p class="tui-text_body-m">Standard Deviation</p>
-            <p class="tui-text_body-m">{{eventAnalytics?.avg_score_st_dev}}</p>
-        </div>
-        <div class="tui-col_xs-12 tui-col_md-2 tui-col_lg-2">
-            <p class="tui-text_body-m">Participants</p>
-            <p class="tui-text_body-m">{{eventAnalytics?.num_participants}}</p>
-        </div>
-    </div>
-</ng-container>
-
-
-<!--<tui-axes class="axes" [axisXLabels]="gradeX" [axisYLabels]="gradeY">-->
-<!--    <tui-bar-chart [max]="20" [value]="gradeDistr"></tui-bar-chart>-->
-<!--</tui-axes>-->
-<br>
-<p class="tui-text_h6">Event Breakdown</p>
-<br>
-<div class="tui-col_md-6" *ngFor="let analytics of questionAnalytics">
-    <a
-        size="l"
-        tuiIsland
-        target="_blank"
-        [hoverable]="true"
-    >
-        <ng-container *ngIf="!analytics.lines else non_mcq">
-            <div class="tui-island__title">
-                <p class="tui-text_body-l"><b>{{analytics.question.title}}</b></p>
-                <p class="tui-text_body-l" [innerHTML]="analytics.question.text"></p>
+<div class="page">
+    <p class="tui-text_h6" style="text-align: left">Event Summary</p>
+    <ng-container class="tui-container tui-container_adaptive tui-container_example">
+        <div class="tui-row tui-row_adaptive tui-row_align_center event-analytics">
+            <div class="tui-col_md-2 tui-col_lg-2">
+                <p class="tui-text_body-m">Average score</p>
+                <p class="tui-text_body-m">{{eventAnalytics?.avg_score}}%</p>
             </div>
-            <div class="tui-island__content">
-
-                <table>
-                    <tr class="{{analytics.question.answer == 'a' ? 'correct_ans': ''}}">
-                        <td [innerHTML]="getUQJ(analytics.question)?.rendered_choices['a']"></td>
-                        <td>{{getResponsePercentage(analytics, 'a')}}</td>
-                        <td>{{analytics.most_frequent_wrong_ans[0]['a'] === 1 ?
-                            analytics.most_frequent_wrong_ans[0]['a'] + ' Respondent' :
-                            analytics.most_frequent_wrong_ans[0]['a'] + ' Respondents'}}
-                        </td>
-                    </tr>
-                    <tr class="{{analytics.question.answer == 'b' ? 'correct_ans': ''}}">
-                        <td [innerHTML]="getUQJ(analytics.question)?.rendered_choices['b']"></td>
-                        <td>{{getResponsePercentage(analytics, 'b')}}</td>
-                        <td>{{analytics.most_frequent_wrong_ans[0]['b'] === 1 ?
-                            analytics.most_frequent_wrong_ans[0]['b'] + ' Respondent' :
-                            analytics.most_frequent_wrong_ans[0]['b'] + ' Respondents'}}
-                        </td>
-
-                    </tr>
-                    <tr class="{{analytics.question.answer == 'c' ? 'correct_ans': ''}}">
-                        <td [innerHTML]="getUQJ(analytics.question)?.rendered_choices['c']"></td>
-                        <td>{{getResponsePercentage(analytics, 'c')}}</td>
-                        <td>{{analytics.most_frequent_wrong_ans[0]['c'] === 1 ?
-                            analytics.most_frequent_wrong_ans[0]['c'] + ' Respondent' :
-                            analytics.most_frequent_wrong_ans[0]['c'] + ' Respondents'}}
-                        </td>
-
-                    </tr>
-                    <tr *ngIf="getUQJ(analytics.question)?.rendered_choices['d'] != null" class="{{analytics.question.answer == 'd' ? 'correct_ans': ''}}">
-                        <td [innerHTML]="getUQJ(analytics.question)?.rendered_choices['d']"></td>
-                        <td>{{getResponsePercentage(analytics, 'd')}}</td>
-                        <td>{{analytics.most_frequent_wrong_ans[0]['d'] === 1 ?
-                            analytics.most_frequent_wrong_ans[0]['d'] + ' Respondent' :
-                            analytics.most_frequent_wrong_ans[0]['d'] + ' Respondents'}}
-                        </td>
-
-                    </tr>
-                </table>
+            <div class="tui-col_md-2 tui-col_lg-2">
+                <p class="tui-text_body-m">High score</p>
+                <p class="tui-text_body-m">{{eventAnalytics?.high_score}}%</p>
             </div>
-        </ng-container>
-        <ng-template #non_mcq>
-            <div class="tui-island__title">
-                <p class="tui-text_body-l"><b>{{analytics.question.title}}</b></p>
-                <p class="tui-text_body-l" [innerHTML]="analytics.question.text"></p>
+            <div class="tui-col_md-2 tui-col_lg-2">
+                <p class="tui-text_body-m">Low score</p>
+                <p class="tui-text_body-m">{{eventAnalytics?.lowest_score}}%</p>
             </div>
-            <div class="tui-island__content">
-                <table>
-                    <tr>
-                        <td class="tui-text_body-l correct_ans">Students who answered correctly</td>
-                        <td class="tui-text_body-l correct_ans">
-                            {{analytics.avg_grade * analytics.num_respondents / analytics.num_respondents *100}}%
-                        </td>
-                        <td class="tui-text_body-l correct_ans">
-                            {{analytics.avg_grade * analytics.num_respondents === 1?
-                            analytics.avg_grade * analytics.num_respondents + ' Respondent':
-                            analytics.avg_grade * analytics.num_respondents + ' Respondents'}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="tui-text_body-l">Students who answered wrong</td>
-                        <td class="tui-text_body-l">
-                            {{(analytics.num_respondents - analytics.avg_grade * analytics.num_respondents) / analytics.num_respondents * 100}}%
-                        </td>
-                        <td class="tui-text_body-l">
-                            {{analytics.num_respondents - analytics.avg_grade * analytics.num_respondents === 1?
-                            analytics.num_respondents - analytics.avg_grade * analytics.num_respondents + ' Repondent':
-                            analytics.num_respondents - analytics.avg_grade * analytics.num_respondents + ' Respondents'}}
-                        </td>
-                </table>
+            <div class="tui-col_md-2 tui-col_lg-2">
+                <p class="tui-text_body-m">Standard Deviation</p>
+                <p class="tui-text_body-m">{{eventAnalytics?.avg_score_st_dev}}</p>
             </div>
-            <br>
-            <div class="tui-island__content">
-                <table>
-                    <tr>
-                        <th>Lines</th>
-                        <th>Blank Lines</th>
-                        <th>Lines of Comment</th>
-                        <th>Lines of Import</th>
-                        <th>Cyclomatic Complexity</th>
-                        <th>Methods</th>
-                    </tr>
-                    <tr>
-                        <td>{{analytics.lines}}</td>
-                        <td>{{analytics.blank_lines}}</td>
-                        <td>{{analytics.comment_lines}}</td>
-                        <td>{{analytics.import_lines}}</td>
-                        <td>{{analytics.cc}}</td>
-                        <td>{{analytics.method}}</td>
-                    </tr>
-                    <tr>
-                        <th>Operators</th>
-                        <th>Operands</th>
-                        <th>Unique Operators</th>
-                        <th>Unique Operands</th>
-                        <th>Vocabulary</th>
-                    </tr>
-                    <tr>
-                        <td>{{analytics.operator}}</td>
-                        <td>{{analytics.operand}}</td>
-                        <td>{{analytics.unique_operator}}</td>
-                        <td>{{analytics.unique_operand}}</td>
-                        <td>{{analytics.vocab}}</td>
-                    </tr>
-                    <tr>
-                        <th>Volume</th>
-                        <th>Difficulty</th>
-                        <th>Effort</th>
-                        <th>Error</th>
-                        <th>Estimate Test Time</th>
-                    </tr>
-                    <tr>
-                        <td>{{analytics.vol}}</td>
-                        <td>{{analytics.difficulty}}</td>
-                        <td>{{analytics.effort}}</td>
-                        <td>{{analytics.error}}</td>
-                        <td>{{analytics.test_time}}</td>
-                    </tr>
-                </table>
+            <div class="tui-col_md-2 tui-col_lg-2">
+                <p class="tui-text_body-m">Participants</p>
+                <p class="tui-text_body-m">{{eventAnalytics?.num_participants}}</p>
             </div>
-        </ng-template>
-    </a>
+            <div class="tui-col_md-2 tui-col_lg-2">
+                <p class="tui-text_body-m">Total Submissions</p>
+                <p class="tui-text_body-m">{{eventAnalytics?.total_submissions}}</p>
+            </div>
+        </div>
+    </ng-container>
+
+
+    <!--<tui-axes class="axes" [axisXLabels]="gradeX" [axisYLabels]="gradeY">-->
+    <!--    <tui-bar-chart [max]="20" [value]="gradeDistr"></tui-bar-chart>-->
+    <!--</tui-axes>-->
+    <br>
+    <p class="tui-text_h6" style="text-align: left">Event Breakdown</p>
+    <br>
+    <app-question-analytics></app-question-analytics>
+
 </div>
-
-
 
 
 

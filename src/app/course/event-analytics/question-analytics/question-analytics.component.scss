@@ -1,53 +1,54 @@
-a{
+a {
     cursor: default;
     text-decoration: none;
 }
 
-td{
+td {
     margin: 2px 2px 2px 2px;
     padding: 2px 2px 2px 2px;
 }
 
-table{
+table {
     width: 100%;
 }
 
-th{
+th {
     padding: 2px 4px 2px 4px;
 }
 
-.tui-island__content{
-    width:100%;
+.tui-island__content {
+    width: 100%;
 }
 
-.correct_ans{
+.correct_ans {
     color: var(--tui-positive);
     font-weight: bold;
 }
 
-.page{
+.page {
     width: 100%;
     margin: auto;
 }
-.island{
+
+.island {
     text-align: center;
     display: flex;
     justify-content: center;
 }
 
-.questions{
+.questions {
     width: 80%;
     margin: auto;
 }
 
-.choices{
-    width:33%;
+.question{
+    margin-bottom: 5px;
 }
 
-tui-badge{
-    font-size: 0.73em;
+.choices {
+    width: 33%;
 }
 
-.event-analytics{
-    text-align: center;
+.solid {
+    border-top: 0.5px solid #bbb;
 }

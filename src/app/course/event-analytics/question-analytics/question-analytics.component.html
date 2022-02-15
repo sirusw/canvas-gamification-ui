@@ -1,0 +1,186 @@
+<div [ngStyle]="{'display':display}">
+    <tui-loader [size]="'xxl'">
+    </tui-loader>
+</div>
+<div class="questions">
+    <div class="question" *ngFor="let analytics of questionAnalytics">
+        <a
+            size="l"
+            tuiIsland
+            target="_blank"
+            [hoverable]="true"
+        >
+            <ng-container *ngIf="!analytics.num_passed_submissions else non_mcq">
+                <div class="title">
+                    <p class="tui-text_body-xl"><b>{{analytics.question.title}}</b></p>
+                    <p class="tui-text_body-l" [innerHTML]="analytics.question.text"></p>
+                </div>
+                <div class="content">
+                    <table>
+                        <tr class="{{analytics.question.answer == 'a' ? 'correct_ans': ''}}">
+                            <td class="choices"
+                                [innerHTML]="getUQJ(analytics.question)?.rendered_choices['a']"></td>
+                            <td class="choices">{{getResponsePercentage(analytics, 'a')}}</td>
+                            <td class="choices">{{analytics.most_frequent_wrong_ans[0]['a'] === 1 ?
+                                analytics.most_frequent_wrong_ans[0]['a'] + ' Submission' :
+                                analytics.most_frequent_wrong_ans[0]['a'] + ' Submissions'}}
+                            </td>
+                        </tr>
+                        <tr class="{{analytics.question.answer == 'b' ? 'correct_ans': ''}}">
+                            <td class="choices"
+                                [innerHTML]="getUQJ(analytics.question)?.rendered_choices['b']"></td>
+                            <td class="choices">{{getResponsePercentage(analytics, 'b')}}</td>
+                            <td class="choices">{{analytics.most_frequent_wrong_ans[0]['b'] === 1 ?
+                                analytics.most_frequent_wrong_ans[0]['b'] + ' Submission' :
+                                analytics.most_frequent_wrong_ans[0]['b'] + ' Submissions'}}
+                            </td>
+                        </tr>
+                        <tr class="{{analytics.question.answer == 'c' ? 'correct_ans': ''}}">
+                            <td class="choices"
+                                [innerHTML]="getUQJ(analytics.question)?.rendered_choices['c']"></td>
+                            <td class="choices">{{getResponsePercentage(analytics, 'c')}}</td>
+                            <td class="choices">{{analytics.most_frequent_wrong_ans[0]['c'] === 1 ?
+                                analytics.most_frequent_wrong_ans[0]['c'] + ' Submission' :
+                                analytics.most_frequent_wrong_ans[0]['c'] + ' Submissions'}}
+                            </td>
+                        </tr>
+                        <tr *ngIf="getUQJ(analytics.question)?.rendered_choices['d'] != null"
+                            class="{{analytics.question.answer == 'd' ? 'correct_ans': ''}}">
+                            <td class="choices"
+                                [innerHTML]="getUQJ(analytics.question)?.rendered_choices['d']"></td>
+                            <td class="choices">{{getResponsePercentage(analytics, 'd')}}</td>
+                            <td class="choices">{{analytics.most_frequent_wrong_ans[0]['d'] === 1 ?
+                                analytics.most_frequent_wrong_ans[0]['d'] + ' Submission' :
+                                analytics.most_frequent_wrong_ans[0]['d'] + ' Submissions'}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </ng-container>
+            <ng-template #non_mcq>
+                <div class="title">
+                    <p class="tui-text_body-xl"><b>{{analytics.question.title}}</b></p>
+                    <p class="tui-text_body-l" [innerHTML]="analytics.question.text"></p>
+                </div>
+                <ng-container>
+                    <br>
+                    <p class="tui-text_body-l"><b>Total Submissions: {{analytics.num_submissions}}</b></p>
+                    <table>
+                        <tr *ngFor="let file of analytics.num_passed_submissions[0] | keyvalue">
+                            <td class="correct_ans choices">Submissions that
+                                passed {{file.key}}</td>
+                            <td class="correct_ans choices">
+                                {{(file.value / analytics.num_submissions * 100).toFixed(2)}}
+                                %
+                            </td>
+                            <td class="correct_ans choices">
+                                {{file.value === 1 ?
+                                file.value + ' Submission' :
+                                file.value + ' Submissions'}}
+                            </td>
+                        </tr>
+                    </table>
+                </ng-container>
+                <br>
+                <div class="content">
+                    <ng-container *ngIf="analytics.missing_lines">
+                        <br>
+                        <hr class="solid">
+                        <br>
+                        <p class="tui-text_body-l choices"><b>Parsons lines that are ignored in submissions: </b></p>
+                        <div *ngFor="let file of analytics.missing_lines[0] | keyvalue">
+                            <b><p [innerHTML]="file.key"></p></b>
+                            <div *ngFor="let line of file.value[0] | keyvalue">
+                                <table>
+                                    <tr>
+                                        <td class="choices" [innerHTML]="line.key"></td>
+                                        <td class="choices">
+                                            {{(line.value / analytics.num_submissions * 100).toFixed(2)}}
+                                            %
+                                        </td>
+                                        <td class="choices">
+                                            {{line.value === 1 ?
+                                            line.value + ' Submission' :
+                                            line.value + ' Submissions'}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <br>
+                        </div>
+                    </ng-container>
+                    <br>
+                    <hr class="solid">
+                    <br>
+                    <p class="tui-text_body-l"><b>Average metrics from all {{analytics.num_submissions}} submissions (excluding empty submissions):</b></p>
+                    <table>
+                        <tr>
+                            <th>Lines</th>
+                            <th>Blank Lines</th>
+                            <th>Lines of Comment</th>
+                            <th>Lines of Import</th>
+                            <th>Cyclomatic Complexity</th>
+                            <th>Methods</th>
+                        </tr>
+                        <tr>
+                            <td>{{analytics.lines}}</td>
+                            <td>{{analytics.blank_lines}}</td>
+                            <td>{{analytics.comment_lines}}</td>
+                            <td>{{analytics.import_lines}}</td>
+                            <td>{{analytics.cyclomatic_complexity}}</td>
+                            <td>{{analytics.method}}</td>
+                        </tr>
+                        <tr>
+                            <th>Operators
+                                <tui-tooltip content="Test" direction="top-right"></tui-tooltip>
+                            </th>
+                            <th>Operands
+                                <tui-tooltip content="Test" direction="top-right"></tui-tooltip>
+                            </th>
+                            <th>Unique Operators
+                                <tui-tooltip content="Test" direction="top-right"></tui-tooltip>
+                            </th>
+                            <th>Unique Operands
+                                <tui-tooltip content="Test" direction="top-right"></tui-tooltip>
+                            </th>
+                            <th>Vocabulary
+                                <tui-tooltip content="Test" direction="top-right"></tui-tooltip>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>{{analytics.operator}}</td>
+                            <td>{{analytics.operand}}</td>
+                            <td>{{analytics.unique_operator}}</td>
+                            <td>{{analytics.unique_operand}}</td>
+                            <td>{{analytics.vocab}}</td>
+                        </tr>
+                        <tr>
+                            <th>Volume
+                                <tui-tooltip content="'Please don't touch this'" direction="right"></tui-tooltip>
+                            </th>
+                            <th>Difficulty
+                                <tui-tooltip content="'Please don't touch this'" direction="right"></tui-tooltip>
+                            </th>
+                            <th>Effort
+                                <tui-tooltip content="'Please don't touch this'" direction="right"></tui-tooltip>
+                            </th>
+                            <th>Error
+                                <tui-tooltip content="'Please don't touch this'" direction="right"></tui-tooltip>
+                            </th>
+                            <th>Estimate Test Time
+                                <tui-tooltip content="'Please don't touch this'" direction="right"></tui-tooltip>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>{{analytics.vol}}</td>
+                            <td>{{analytics.difficulty}}</td>
+                            <td>{{analytics.effort}}</td>
+                            <td>{{analytics.error}}</td>
+                            <td>{{analytics.test_time}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </ng-template>
+        </a>
+    </div>
+</div>

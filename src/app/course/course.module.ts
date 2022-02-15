@@ -34,8 +34,8 @@ import {TokenUseService} from "@app/course/_services/token-use.service";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 import {
     TuiAvatarModule, TuiBadgeModule,
-    TuiCheckboxLabeledModule, TuiComboBoxModule, TuiDataListWrapperModule,
-    TuiFieldErrorModule, TuiFilterByInputPipeModule,
+    TuiCheckboxLabeledModule,
+    TuiFieldErrorModule,
     TuiInputCountModule,
     TuiInputDateModule,
     TuiInputDateRangeModule,
@@ -52,12 +52,14 @@ import {
     TuiCalendarModule,
     TuiDataListModule,
     TuiDialogModule,
-    TuiErrorModule, TuiFormatNumberPipeModule,
+    TuiErrorModule,
     TuiLinkModule,
     TuiLoaderModule,
     TuiNotificationModule,
     TuiSvgModule,
-    TuiTextfieldControllerModule
+    TuiTextfieldControllerModule,
+    TuiTooltipModule,
+    TuiHintModule
 } from "@taiga-ui/core";
 import {TextMaskModule} from "angular2-text-mask";
 import {
@@ -78,6 +80,7 @@ import {PipesModule} from "@app/_helpers/pipes/pipes.module";
 import {PracticeProblemComponent} from './practice-problem/practice-problem.component';
 import {ProblemsModule} from "@app/problems/problems.module";
 import { StudentComponent } from './analytics/student/student.component';
+import { QuestionAnalyticsComponent } from './event-analytics/question-analytics/question-analytics.component';
 
 @NgModule({
     declarations: [
@@ -96,6 +99,7 @@ import { StudentComponent } from './analytics/student/student.component';
         EventAnalyticsComponent,
         PracticeProblemComponent,
         StudentComponent,
+        QuestionAnalyticsComponent,
     ],
     imports: [
         CommonModule,
@@ -154,6 +158,8 @@ import { StudentComponent } from './analytics/student/student.component';
         TuiLineChartModule,
         AdminModule,
         TuiBadgeModule,
+        TuiTooltipModule,
+        TuiHintModule
     ],
     providers: [
         CourseService,

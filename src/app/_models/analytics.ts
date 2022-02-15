@@ -14,15 +14,19 @@ export interface QuestionAnalytics{
     avg_grade: number;
     grade_std_dev: number;
     num_respondents: number;
+    num_submissions: number;
     avg_attempt: number;
     attempt_std_dev: number;
     median_time_spent: number;
+
+    num_passed_submissions: JSON;
+    missing_lines: JSON;
 
     lines: number;
     blank_lines: number;
     comment_lines: number;
     import_lines: number;
-    cc: number;
+    cyclomatic_complexity: number;
     method: number;
     operator: number;
     operand: number;
@@ -47,6 +51,7 @@ export interface EventAnalytics {
     avg_score: number;
     avg_score_st_dev: number;
     num_participants: number;
+    total_submissions: number;
     grades: JSON;
 }
 

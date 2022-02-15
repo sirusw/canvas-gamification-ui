@@ -16,7 +16,7 @@ export class EventAnalyticsService {
     getEventAnalyticsByEvent(eventId: number): Observable<EventAnalytics> {
         const params = new HttpParams()
             .set('id', String(eventId));
-        const url = this.apiService.getURL('event-analytics', 'event');
+        const url = this.apiService.getURL('analytics', 'event', 'event');
         return this.http
             .get<EventAnalytics>(url, {params})
             .pipe(catchError(this.apiService.handleError<EventAnalytics>(`Error Occurred while fetching data for this event analytics`)));
