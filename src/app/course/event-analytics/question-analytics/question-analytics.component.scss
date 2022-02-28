@@ -52,3 +52,13 @@ th {
 .solid {
     border-top: 0.5px solid #bbb;
 }
+::ng-deep .mat-tooltip {
+  font-size: 13px;
+    background-color: #526ed3;
+    border-radius: 10px;
+    padding: 3px 3px 3px 3px;
+}
+
+table{
+    text-align:center;
+}

@@ -60,9 +60,9 @@ import {
     TuiThemeNightModule,
     TuiNotificationsModule,
     TuiDialogModule,
-    TuiLoaderModule
+    TuiLoaderModule, TuiTooltipModule, TuiHintModule
 } from '@taiga-ui/core';
-import {TuiAvatarModule, TuiDropdownHoverModule, TuiIslandModule, TuiToggleModule} from "@taiga-ui/kit";
+import {TuiAvatarModule, TuiDropdownHoverModule, TuiIslandModule, TuiTagModule, TuiToggleModule} from "@taiga-ui/kit";
 import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
 import {TuiActiveZoneModule} from "@taiga-ui/cdk";
 import {PipesModule} from "@app/_helpers/pipes/pipes.module";
@@ -142,6 +142,9 @@ import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
         TuiLoaderModule,
         TuiTableModule,
         TuiTablePaginationModule,
+        TuiTooltipModule,
+        TuiHintModule,
+        TuiTagModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

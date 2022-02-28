@@ -60,7 +60,12 @@ export class QuestionAnalyticsComponent implements OnInit {
         sum += analytics.most_frequent_wrong_ans[0]['b'];
         sum += analytics.most_frequent_wrong_ans[0]['c'];
         sum += analytics.most_frequent_wrong_ans[0]['d'];
-        return String(analytics.most_frequent_wrong_ans[0][answer] / sum * 100) + "%";
+        return String((analytics.most_frequent_wrong_ans[0][answer] / sum * 100).toFixed(2)) + "%";
+    }
+
+
+    parseFloat(value: number): number{
+        return Math.round(value);
     }
 
 }

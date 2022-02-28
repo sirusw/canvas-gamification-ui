@@ -59,7 +59,7 @@ import {
     TuiSvgModule,
     TuiTextfieldControllerModule,
     TuiTooltipModule,
-    TuiHintModule
+    TuiHintModule,
 } from "@taiga-ui/core";
 import {TextMaskModule} from "angular2-text-mask";
 import {
@@ -81,6 +81,7 @@ import {PracticeProblemComponent} from './practice-problem/practice-problem.comp
 import {ProblemsModule} from "@app/problems/problems.module";
 import { StudentComponent } from './analytics/student/student.component';
 import { QuestionAnalyticsComponent } from './event-analytics/question-analytics/question-analytics.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
     declarations: [
@@ -159,7 +160,9 @@ import { QuestionAnalyticsComponent } from './event-analytics/question-analytics
         AdminModule,
         TuiBadgeModule,
         TuiTooltipModule,
-        TuiHintModule
+        TuiHintModule,
+        TuiTagModule,
+        MatTooltipModule,
     ],
     providers: [
         CourseService,

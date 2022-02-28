@@ -12,6 +12,8 @@ export interface QuestionAnalytics{
 
     most_frequent_wrong_ans: JSON;
     avg_grade: number;
+    correct_num: number;
+    assigned_difficulty: string;
     grade_std_dev: number;
     num_respondents: number;
     num_submissions: number;
