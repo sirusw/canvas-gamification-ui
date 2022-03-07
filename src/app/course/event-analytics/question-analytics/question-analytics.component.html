@@ -20,8 +20,10 @@
                         [value]="analytics.assigned_difficulty"
                     ></tui-tag>
                     <p class="tui-text_body-l" [innerHTML]="analytics.question.text"></p><br>
-                    <p class="tui-text_body-l"><b>Median time spent on this question: {{analytics.median_time_spent}}
-                        seconds</b></p>
+                    <p class="tui-text_body-l"><b>Total of {{analytics.num_submissions}} submissions</b></p>
+                    <br>
+                    <p class="tui-text_body-l"><b>Average attempt on this question: {{analytics.avg_attempt}}</b></p>
+                    <br>
                 </div>
                 <div class="content">
                     <table>
@@ -82,9 +84,9 @@
                     <p class="tui-text_body-l"><b>Total of {{analytics.num_submissions}} submissions
                         with {{(analytics.correct_num)}} scored full mark</b></p>
                     <br>
-                    <p class="tui-text_body-l"><b>Median time spent on this question: {{analytics.median_time_spent}}
-                        seconds</b></p>
+                    <p class="tui-text_body-l"><b>Average attempt on this question: {{analytics.avg_attempt}}</b></p>
                     <table>
+
                         <tr *ngFor="let file of analytics.num_passed_submissions[0] | keyvalue">
                             <td class="correct_ans choices">Submissions that
                                 passed unit test: {{file.key}}</td>
@@ -131,177 +133,209 @@
                             <br>
                         </div>
                     </ng-container>
-                    <br>
-                    <hr class="solid">
-                    <br>
-                    <p class="tui-text_body-l"><b>Average metrics from all {{analytics.num_submissions}} submissions
-                        (excluding empty submissions):</b></p>
-                    <table>
-                        <tr>
-                            <th>Lines</th>
-                            <th>Blank Lines</th>
-                            <th>Lines of Comment</th>
-                            <th>Lines of Import</th>
-                            <th>Methods</th>
-                            <th>Cyclomatic Complexity
-                                <span
-                                    mat-raised-button
-                                    #tooltip="matTooltip"
-                                    matTooltip="A software metric used to indicate the complexity of a program"
-                                    [matTooltipPosition]="'above'"
-                                    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-                                    class="example-button"
-                                >
+
+                    <tui-accordion class="container">
+                        <tui-accordion-item>
+                            <b><p>Common errors</p></b>
+                            <ng-template tuiAccordionItemContent>
+                                <table>
+                                    <tr *ngFor="let e of analytics.most_frequent_wrong_ans | keyvalue; let i = index">
+                                        <td *ngIf="e.value > 1 && e.key">{{e.key}}</td>
+                                        <td *ngIf="e.value > 1 && e.key">{{e.value}} Submissions</td>
+                                    </tr>
+                                </table>
+                            </ng-template>
+                        </tui-accordion-item>
+                        <tui-accordion-item>
+                            <b><p>Test space and time</p></b>
+                            <ng-template tuiAccordionItemContent>
+                                <table>
+                                    <tr>
+                                        <th>Average test time</th>
+                                        <th>Test time standard deviation</th>
+                                        <th>Average test space</th>
+                                        <th>Test space standard deviation</th>
+                                    </tr>
+                                    <tr >
+                                        <td>{{analytics.test_time}} seconds</td>
+                                        <td>{{analytics.test_time_stdev}}</td>
+                                        <td>{{analytics.space}} KB</td>
+                                        <td>{{analytics.space_stdev}}</td>
+                                    </tr>
+                                </table>
+                            </ng-template>
+                        </tui-accordion-item>
+                        <tui-accordion-item>
+                            <b><p>Junit Test</p></b>
+                            <ng-template tuiAccordionItemContent>
+                                <pre><code class="language-java">{{ analytics.junit_template }}</code></pre>
+                            </ng-template>
+                        </tui-accordion-item>
+                        <tui-accordion-item>
+                            <p class="tui-text_body-l"><b>Average metrics from all {{analytics.num_submissions}}
+                                submissions
+                            </b></p>
+                            <ng-template tuiAccordionItemContent>
+                                <table>
+                                    <tr>
+                                        <th>Lines</th>
+                                        <th>Blank Lines</th>
+                                        <th>Lines of Comment</th>
+                                        <th>Lines of Import</th>
+                                        <th>Methods</th>
+
+                                    </tr>
+                                    <tr>
+                                        <td>{{analytics.lines}}</td>
+                                        <td>{{analytics.blank_lines}}</td>
+                                        <td>{{analytics.comment_lines}}</td>
+                                        <td>{{analytics.import_lines}}</td>
+                                        <td>{{analytics.method}}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Cyclomatic Complexity
+                                            <span
+                                                mat-raised-button
+                                                #tooltip="matTooltip"
+                                                matTooltip="A software metric used to indicate the complexity of a program"
+                                                [matTooltipPosition]="'above'"
+                                                aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                                                class="example-button"
+                                            >
                                     <mat-icon style="font-size: 20px" color="accent">info</mat-icon>
                                 </span></th>
-                        </tr>
-                        <tr>
-                            <td>{{analytics.lines}}</td>
-                            <td>{{analytics.blank_lines}}</td>
-                            <td>{{analytics.comment_lines}}</td>
-                            <td>{{analytics.import_lines}}</td>
-                            <td>{{analytics.method}}</td>
-                            <td>{{analytics.cyclomatic_complexity}}</td>
-                        </tr>
-                        <tr>
-                            <th>Operators
-                                <span
-                                    mat-raised-button
-                                    #tooltip="matTooltip"
-                                    matTooltip="Number of operators in the submission code"
-                                    [matTooltipPosition]="'above'"
-                                    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-                                    class="example-button"
-                                >
+                                        <th>Operators
+                                            <span
+                                                mat-raised-button
+                                                #tooltip="matTooltip"
+                                                matTooltip="Number of operators in the submission code"
+                                                [matTooltipPosition]="'above'"
+                                                aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                                                class="example-button"
+                                            >
                                     <mat-icon style="font-size: 20px" color="accent">info</mat-icon>
                                 </span>
-                            </th>
-                            <th>Operands
-                                <span
-                                    mat-raised-button
-                                    #tooltip="matTooltip"
-                                    matTooltip="Number of operands in the submission code"
-                                    [matTooltipPosition]="'above'"
-                                    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-                                    class="example-button"
-                                >
+                                        </th>
+                                        <th>Operands
+                                            <span
+                                                mat-raised-button
+                                                #tooltip="matTooltip"
+                                                matTooltip="Number of operands in the submission code"
+                                                [matTooltipPosition]="'above'"
+                                                aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                                                class="example-button"
+                                            >
                                     <mat-icon style="font-size: 20px" color="accent">info</mat-icon>
                                 </span>
-                            </th>
-                            <th>Unique Operators
-                                <span
-                                    mat-raised-button
-                                    #tooltip="matTooltip"
-                                    matTooltip="Number of distinct operators in the submission code"
-                                    [matTooltipPosition]="'above'"
-                                    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-                                    class="example-button"
-                                >
+                                        </th>
+                                        <th>Unique Operators
+                                            <span
+                                                mat-raised-button
+                                                #tooltip="matTooltip"
+                                                matTooltip="Number of distinct operators in the submission code"
+                                                [matTooltipPosition]="'above'"
+                                                aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                                                class="example-button"
+                                            >
                                     <mat-icon style="font-size: 20px" color="accent">info</mat-icon>
                                 </span>
-                            </th>
-                            <th>Unique Operands
-                                <span
-                                    mat-raised-button
-                                    #tooltip="matTooltip"
-                                    matTooltip="Number of distinct operands in the submission code"
-                                    [matTooltipPosition]="'above'"
-                                    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-                                    class="example-button"
-                                >
+                                        </th>
+                                        <th>Unique Operands
+                                            <span
+                                                mat-raised-button
+                                                #tooltip="matTooltip"
+                                                matTooltip="Number of distinct operands in the submission code"
+                                                [matTooltipPosition]="'above'"
+                                                aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                                                class="example-button"
+                                            >
                                     <mat-icon style="font-size: 20px" color="accent">info</mat-icon>
                                 </span>
-                            </th>
-                            <th>Vocabulary
-                                <span
-                                    mat-raised-button
-                                    #tooltip="matTooltip"
-                                    matTooltip="Total number of unique operator and unique operand occurrences"
-                                    [matTooltipPosition]="'above'"
-                                    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-                                    class="example-button"
-                                >
+                                        </th>
+
+                                    </tr>
+                                    <tr>
+                                        <td>{{analytics.cyclomatic_complexity}}</td>
+                                        <td>{{analytics.operator}}</td>
+                                        <td>{{analytics.operand}}</td>
+                                        <td>{{analytics.unique_operator}}</td>
+                                        <td>{{analytics.unique_operand}}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>Vocabulary
+                                            <span
+                                                mat-raised-button
+                                                #tooltip="matTooltip"
+                                                matTooltip="Total number of unique operator and unique operand occurrences"
+                                                [matTooltipPosition]="'above'"
+                                                aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                                                class="example-button"
+                                            >
                                     <mat-icon style="font-size: 20px" color="accent">info</mat-icon>
                                 </span>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>{{analytics.operator}}</td>
-                            <td>{{analytics.operand}}</td>
-                            <td>{{analytics.unique_operator}}</td>
-                            <td>{{analytics.unique_operand}}</td>
-                            <td>{{analytics.vocab}}</td>
-                        </tr>
-                        <tr>
-                            <th>Volume
-                                <span
-                                    mat-raised-button
-                                    #tooltip="matTooltip"
-                                    matTooltip="Proportional to program size, represents the size, in bits, of space necessary for storing the program"
-                                    [matTooltipPosition]="'above'"
-                                    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-                                    class="example-button"
-                                >
+                                        </th>
+                                        <th>Volume
+                                            <span
+                                                mat-raised-button
+                                                #tooltip="matTooltip"
+                                                matTooltip="Proportional to program size, represents the size, in bits, of space necessary for storing the program"
+                                                [matTooltipPosition]="'above'"
+                                                aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                                                class="example-button"
+                                            >
                                     <mat-icon style="font-size: 20px" color="accent">info</mat-icon>
                                 </span>
-                            </th>
-                            <th>Difficulty
-                                <span
-                                    mat-raised-button
-                                    #tooltip="matTooltip"
-                                    matTooltip="The difficulty of the program is to handle"
-                                    [matTooltipPosition]="'above'"
-                                    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-                                    class="example-button"
-                                >
+                                        </th>
+                                        <th>Difficulty
+                                            <span
+                                                mat-raised-button
+                                                #tooltip="matTooltip"
+                                                matTooltip="The difficulty of the program is to handle"
+                                                [matTooltipPosition]="'above'"
+                                                aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                                                class="example-button"
+                                            >
                                     <mat-icon style="font-size: 20px" color="accent">info</mat-icon>
                                 </span>
-                            </th>
-                            <th>Effort
-                                <span
-                                    mat-raised-button
-                                    #tooltip="matTooltip"
-                                    matTooltip="the amount of mental activity needed to translate the existing algorithm into implementation"
-                                    [matTooltipPosition]="'above'"
-                                    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-                                    class="example-button"
-                                >
+                                        </th>
+                                        <th>Effort
+                                            <span
+                                                mat-raised-button
+                                                #tooltip="matTooltip"
+                                                matTooltip="the amount of mental activity needed to translate the existing algorithm into implementation"
+                                                [matTooltipPosition]="'above'"
+                                                aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                                                class="example-button"
+                                            >
                                     <mat-icon style="font-size: 20px" color="accent">info</mat-icon>
                                 </span>
-                            </th>
-                            <th>Error
-                                <span
-                                    mat-raised-button
-                                    #tooltip="matTooltip"
-                                    matTooltip="Estimate amount of bugs"
-                                    [matTooltipPosition]="'above'"
-                                    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-                                    class="example-button"
-                                >
+                                        </th>
+                                        <th>Error
+                                            <span
+                                                mat-raised-button
+                                                #tooltip="matTooltip"
+                                                matTooltip="Estimate amount of bugs"
+                                                [matTooltipPosition]="'above'"
+                                                aria-label="Button that displays a tooltip that hides when scrolled out of the container"
+                                                class="example-button"
+                                            >
                                     <mat-icon style="font-size: 20px" color="accent">info</mat-icon>
                                 </span>
-                            </th>
-                            <th>Estimate Test Time
-                                <span
-                                    mat-raised-button
-                                    #tooltip="matTooltip"
-                                    matTooltip="Estimated time to test the program"
-                                    [matTooltipPosition]="'above'"
-                                    aria-label="Button that displays a tooltip that hides when scrolled out of the container"
-                                    class="example-button"
-                                >
-                                    <mat-icon style="font-size: 20px" color="accent">info</mat-icon>
-                                </span>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>{{analytics.vol}}</td>
-                            <td>{{analytics.difficulty}}</td>
-                            <td>{{analytics.effort}}</td>
-                            <td>{{analytics.error}}</td>
-                            <td>{{analytics.test_time}}</td>
-                        </tr>
-                    </table>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td>{{analytics.vocab}}</td>
+                                        <td>{{analytics.vol}}</td>
+                                        <td>{{analytics.difficulty}}</td>
+                                        <td>{{analytics.effort}}</td>
+                                        <td>{{analytics.error}}</td>
+                                    </tr>
+                                </table>
+                            </ng-template>
+                        </tui-accordion-item>
+                    </tui-accordion>
                 </div>
             </ng-template>
         </a>

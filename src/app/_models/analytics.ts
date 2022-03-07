@@ -14,6 +14,7 @@ export interface QuestionAnalytics{
     avg_grade: number;
     correct_num: number;
     assigned_difficulty: string;
+    junit_template: string;
     grade_std_dev: number;
     num_respondents: number;
     num_submissions: number;
@@ -41,6 +42,9 @@ export interface QuestionAnalytics{
     effort: number;
     error: number;
     test_time: number;
+    test_time_stdev: number;
+    space: number;
+    space_stdev: number;
 
 }
 export interface EventAnalytics {
